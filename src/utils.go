@@ -80,7 +80,7 @@ func Options() string {
 	}
 
 	flag.BoolVar(&help, "h", false, "Print this message")
-	flag.BoolVar(&version, "v", false, "Print version number")
+	flag.BoolVar(&version, "V", false, "Print version number")
 	flag.StringVar(&station, "s", sconf, "Weather station: \"city, state-abbreviation\", (US or Canadian) zipcode, 3- or 4-letter airport code, or LAT,LONG")
 	flag.Parse()
 
