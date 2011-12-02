@@ -46,7 +46,7 @@ var conf Config
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "2.0.2"
+	return "2.0.3"
 }
 
 // GetConf returns the API key and weather station from
