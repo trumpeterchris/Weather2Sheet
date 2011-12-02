@@ -91,12 +91,12 @@ func printWeather(obs *Conditions) {
 	case "0":
 		fmt.Println(pstring, "holding steady")
 	}
-	fmt.Println("   Dewpoint: " + current.Dewpoint_string)
+	fmt.Println("   Dewpoint: ", current.Dewpoint_string)
 	if current.Heat_index_string != "NA" {
-		fmt.Println("   Heat Index: " + current.Heat_index_string)
+		fmt.Println("   Heat Index: ", current.Heat_index_string)
 	}
 	if current.Windchill_string != "NA" {
-		fmt.Println("   Windchill: " + current.Windchill_string)
+		fmt.Println("   Windchill: ", current.Windchill_string)
 	}
 	fmt.Printf("   Visibility: %s miles\n", current.Visibility_mi)
 	m, _ := regexp.MatchString("0.0", current.Precip_today_string)
