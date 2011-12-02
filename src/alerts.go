@@ -46,9 +46,9 @@ type Alerts struct {
 
 func main() {
 	var obs Conditions
-	key, _ := utils.GetConf()
+  utils.ReadConf()
 	stationId := utils.Options()
-	url := utils.BuildURL("alerts", stationId, key)
+	url := utils.BuildURL("alerts", stationId)
 	b, err := utils.Fetch(url)
 	utils.CheckError(err)
 	jsonErr := json.Unmarshal(b, &obs)

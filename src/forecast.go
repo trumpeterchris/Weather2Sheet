@@ -55,9 +55,9 @@ type Forecastday struct {
 
 func main() {
 	var obs Conditions
-	key, _ := utils.GetConf()
+  utils.ReadConf()
 	stationId := utils.Options()
-	url := utils.BuildURL("forecast", stationId, key)
+	url := utils.BuildURL("forecast", stationId)
 	b, err := utils.Fetch(url)
 	utils.CheckError(err)
 	jsonErr := json.Unmarshal(b, &obs)
