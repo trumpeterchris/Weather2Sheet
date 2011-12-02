@@ -37,6 +37,13 @@ import (
 	"flag"
 )
 
+type Config struct {
+  Key     string
+  Station string
+}
+
+var conf Config
+
 // GetVersion returns the version of the package
 func GetVersion() string {
 	return "2.0.2"
@@ -44,15 +51,9 @@ func GetVersion() string {
 
 // GetConf returns the API key and weather station from
 // the configuration file at $HOME/.condrc
-func GetConf() (string, string) {
-
-	type config struct {
-		Key     string
-		Station string
-	}
+func ReadConf() {
 
 	var b []byte
-	var conf config
 
 	var confFile = os.Getenv("HOME") + "/.condrc"
 	b, err := ioutil.ReadFile(confFile)
@@ -64,7 +65,6 @@ func GetConf() (string, string) {
 		fmt.Println("You must create a .condrc file in $HOME.")
 		os.Exit(1)
 	}
-	return conf.Key, conf.Station
 }
 
 // Options handles commandline options and returns a 
@@ -74,10 +74,11 @@ func Options() string {
 	var help, version bool
 	var station, sconf string
 
-	_, sconf = GetConf()
-	if sconf == "" {
+	if conf.Station == "" {
 		sconf = "KLNK"
-	}
+  } else {
+    sconf = conf.Station
+  }
 
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print version number")
@@ -116,11 +117,13 @@ func Options() string {
 
 // BuildURL returns the URL required by the Weather Underground API
 // from the query type, station id, and API key
-func BuildURL(infoType string, stationId string, key string) string {
+func BuildURL(infoType string, stationId string) string {
 
 	const URLstem = "http://api.wunderground.com/api/"
 	const query = "/q/"
 	const format = ".json"
+
+  var key = conf.Key
 
 	return URLstem + key + "/" + infoType + query + stationId + format
 }
@@ -145,3 +148,4 @@ func CheckError(err os.Error) {
 		os.Exit(1)
 	}
 }
+
