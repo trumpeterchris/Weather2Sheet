@@ -26,7 +26,7 @@
 package main
 
 import (
-  "./utils"
+	"./utils"
 	"fmt"
 	"json"
 	"strconv"
@@ -57,7 +57,7 @@ type Sunset struct {
 
 func main() {
 	var obs Conditions
-  utils.ReadConf()
+	utils.ReadConf()
 	stationId := utils.Options()
 	url := utils.BuildURL("astronomy", stationId)
 	b, err := utils.Fetch(url)

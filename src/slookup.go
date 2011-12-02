@@ -29,7 +29,7 @@
 package main
 
 import (
-  "./utils"
+	"./utils"
 	"fmt"
 	"json"
 )
@@ -57,7 +57,7 @@ type Station struct {
 
 func main() {
 	var obs Conditions
-  utils.ReadConf()
+	utils.ReadConf()
 	stationId := utils.Options()
 	url := utils.BuildURL("geolookup", stationId)
 	b, err := utils.Fetch(url)

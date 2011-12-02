@@ -57,6 +57,14 @@ almanac.o: utils.o
 utils.o:
 	$(C) utils.go 
 
+format:
+	gofmt -tabwidth=2 -w=true conditions.go
+	gofmt -tabwidth=2 -w=true forecast.go
+	gofmt -tabwidth=2 -w=true alerts.go
+	gofmt -tabwidth=2 -w=true slookup.go
+	gofmt -tabwidth=2 -w=true astronomy.go
+	gofmt -tabwidth=2 -w=true almanac.go
+
 clean:
 	rm -f $(PROGS)
 	rm -f *.8

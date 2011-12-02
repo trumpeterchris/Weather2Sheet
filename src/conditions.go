@@ -30,7 +30,7 @@
 package main
 
 import (
-  "./utils"
+	"./utils"
 	"fmt"
 	"json"
 	"regexp"
@@ -64,7 +64,7 @@ type Location struct {
 
 func main() {
 	var obs Conditions
-  utils.ReadConf()
+	utils.ReadConf()
 	stationId := utils.Options()
 	url := utils.BuildURL("conditions", stationId)
 	b, err := utils.Fetch(url)

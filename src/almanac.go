@@ -26,7 +26,7 @@
 package main
 
 import (
-  "./utils"
+	"./utils"
 	"fmt"
 	"json"
 )
@@ -64,7 +64,7 @@ type Record struct {
 
 func main() {
 	var obs Conditions
-  utils.ReadConf()
+	utils.ReadConf()
 	stationId := utils.Options()
 	url := utils.BuildURL("almanac", stationId)
 	b, err := utils.Fetch(url)

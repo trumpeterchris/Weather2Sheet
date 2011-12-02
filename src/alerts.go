@@ -28,7 +28,7 @@
 package main
 
 import (
-  "./utils"
+	"./utils"
 	"fmt"
 	"json"
 )
@@ -46,7 +46,7 @@ type Alerts struct {
 
 func main() {
 	var obs Conditions
-  utils.ReadConf()
+	utils.ReadConf()
 	stationId := utils.Options()
 	url := utils.BuildURL("alerts", stationId)
 	b, err := utils.Fetch(url)

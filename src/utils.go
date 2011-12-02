@@ -38,8 +38,8 @@ import (
 )
 
 type Config struct {
-  Key     string
-  Station string
+	Key     string
+	Station string
 }
 
 var conf Config
@@ -76,9 +76,9 @@ func Options() string {
 
 	if conf.Station == "" {
 		sconf = "KLNK"
-  } else {
-    sconf = conf.Station
-  }
+	} else {
+		sconf = conf.Station
+	}
 
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print version number")
@@ -123,7 +123,7 @@ func BuildURL(infoType string, stationId string) string {
 	const query = "/q/"
 	const format = ".json"
 
-  var key = conf.Key
+	var key = conf.Key
 
 	return URLstem + key + "/" + infoType + query + stationId + format
 }
@@ -148,4 +148,3 @@ func CheckError(err os.Error) {
 		os.Exit(1)
 	}
 }
-

@@ -30,7 +30,7 @@
 package main
 
 import (
-  "./utils"
+	"./utils"
 	"fmt"
 	"json"
 )
@@ -55,7 +55,7 @@ type Forecastday struct {
 
 func main() {
 	var obs Conditions
-  utils.ReadConf()
+	utils.ReadConf()
 	stationId := utils.Options()
 	url := utils.BuildURL("forecast", stationId)
 	b, err := utils.Fetch(url)
