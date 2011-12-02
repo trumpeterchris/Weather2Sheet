@@ -144,7 +144,7 @@ func Fetch(url string) ([]byte, os.Error) {
 // CheckError exits on error with a message
 func CheckError(err os.Error) {
 	if err != nil {
-		fmt.Println(os.Stderr, "Fatal error ", err.String())
+		fmt.Fprintf(os.Stderr, "Fatal error\n%v\n", err)
 		os.Exit(1)
 	}
 }
