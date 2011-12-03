@@ -46,7 +46,7 @@ format:
 
 clean:
 	rm -f $(PROGS)
-	rm -f conditions.$(O) forecast.$(O) alerts.$(O) slookup.$(O) astronomy.$(O) almanac.$(O) utils.$(0) wu.$(O)
+	rm -f conditions.$(O) forecast.$(O) alerts.$(O) slookup.$(O) astronomy.$(O) almanac.$(O) utils.$(O) wu.$(O)
 
 install:
 	cp conditions forecast alerts slookup astronomy almanac wu $(PREFIX)
