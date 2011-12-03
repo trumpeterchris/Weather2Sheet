@@ -1,9 +1,12 @@
-
 include $(GOROOT)/src/Make.inc
-PROGS = conditions forecast alerts slookup astronomy almanac
-PREFIX = /usr/local/bin
+PROGS = conditions forecast alerts slookup astronomy almanac wu
+PREFIX = $(GOBIN)
 
 all: $(PROGS)
+
+wu:	wu.go
+	$(GC) -o wu.$(O) wu.go
+	$(LD) -o wu wu.$(O)
 
 conditions:	conditions.go utils.$(O)
 	$(GC) -o conditions.$(O) conditions.go
@@ -33,25 +36,20 @@ utils.$(O):	utils.go
 	$(GC) utils.go 
 
 format:
-	gofmt -tabwidth=2 -w=true conditions.go
-	gofmt -tabwidth=2 -w=true forecast.go
-	gofmt -tabwidth=2 -w=true alerts.go
-	gofmt -tabwidth=2 -w=true slookup.go
-	gofmt -tabwidth=2 -w=true astronomy.go
-	gofmt -tabwidth=2 -w=true almanac.go
+	gofmt -tabwidth=2 -w wu.go
+	gofmt -tabwidth=2 -w conditions.go
+	gofmt -tabwidth=2 -w forecast.go
+	gofmt -tabwidth=2 -w alerts.go
+	gofmt -tabwidth=2 -w slookup.go
+	gofmt -tabwidth=2 -w astronomy.go
+	gofmt -tabwidth=2 -w almanac.go
 
 clean:
 	rm -f $(PROGS)
-	rm -f *.8
-	rm -f *.6
+	rm -f conditions.$(O) forecast.$(O) alerts.$(O) slookup.$(O) astronomy.$(O) almanac.$(O) wu.$(O)
 
 install:
-	cp conditions $(PREFIX)
-	cp forecast $(PREFIX)
-	cp alerts $(PREFIX)
-	cp slookup $(PREFIX)
-	cp astronomy $(PREFIX)
-	cp almanac $(PREFIX)
+	cp conditions forecast alerts slookup astronomy almanac wu $(PREFIX)
 
 uninstall:
 	rm $(PREFIX)/conditions
@@ -60,3 +58,4 @@ uninstall:
 	rm $(PREFIX)/slookup
 	rm $(PREFIX)/astronomy
 	rm $(PREFIX)/almanac
+	rm $(PREFIX)/wu
