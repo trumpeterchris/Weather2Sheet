@@ -22,7 +22,7 @@ type Config struct {
 }
 
 var (
-	help, version, doalmanac, doalerts, doconditions, dolookup, doforecast, doastro bool
+	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doastro bool
 	conf                                                                            Config
 )
 
@@ -61,9 +61,10 @@ func Options() string {
 		sconf = conf.Station
 	}
 
+	flag.BoolVar(&doall, "all", false, "show all weather data")
 	flag.BoolVar(&doconditions, "conditions", false, "Reports the current weather conditions")
 	flag.BoolVar(&doalerts, "alerts", false, "Reports any active weather alerts")
-	flag.BoolVar(&dolookup, "lookup", false, "Lookup the codes for the various weather stations in a particular area")
+	flag.BoolVar(&dolookup, "lookup", false, "Lookup the codes for the weather stations in a particular area")
 	flag.BoolVar(&doastro, "astro", false, "Reports sunrise, sunset, and lunar phase")
 	flag.BoolVar(&doforecast, "forecast", false, "Reports the current forecast")
 	flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
@@ -433,6 +434,15 @@ func weather(operation string, station string) {
 
 func main() {
 	stationId := Options()
+	if doall {
+		weather("alerts", stationId)
+		weather("almanac", stationId)
+		weather("astronomy", stationId)
+		weather("conditions", stationId)
+		weather("forecast", stationId)
+		weather("geolookup", stationId)
+		os.Exit(0)
+	}
 	if doalerts {
 		weather("alerts", stationId)
 	}
