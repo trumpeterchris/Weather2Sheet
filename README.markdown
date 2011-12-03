@@ -2,7 +2,7 @@
 Conditions
 ==========
 
-Version 2.0.3.
+Version 2.0.4.
 
 Conditions is a suite of small command-line applications that retrieve weather data from [Weather Underground](http://www.wunderground.com).  The programs are designed to be extremely fast and generally conformant with the [UNIX philosophy](http://en.wikipedia.org/wiki/Unix_philosophy).
 
@@ -63,7 +63,7 @@ Then proceed with the above.
 License(s)
 ---------
 
-Conditions is written and maintained by [Stephen Ramsay](http://lenz.unl.edu/) (sramsay{dot}unl{at}gmail{dot}com).
+Conditions is written and maintained by [Stephen Ramsay](http://lenz.unl.edu/) (sramsay{dot}unl{at}gmail{dot}com) and [Anthony Starks](http://mindchunk.blogspot.com/).
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
