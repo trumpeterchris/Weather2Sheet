@@ -1,61 +1,36 @@
 
+include $(GOROOT)/src/Make.inc
 PROGS = conditions forecast alerts slookup astronomy almanac
 PREFIX = /usr/local/bin
-GOARCH := $(GOARCH)
-GOPATH := $(PWD)
-
-ifeq ($(GOARCH), amd64)
-	C   = 6g
-	L   = 6l
-	SFX = 6
-endif
-
-ifeq ($(GOARCH), 386)
-	C   = 8g
-	L   = 8l
-	SFX = 8
-endif
 
 all: $(PROGS)
 
-conditions: conditions.o
-	$(L) -o conditions conditions.$(SFX)
+conditions:	conditions.go utils.$(O)
+	$(GC) -o conditions.$(O) conditions.go
+	$(LD) -o conditions conditions.$(O)
 
-conditions.o: utils.o
-	$(C) conditions.go
+almanac:	almanac.go utils.$(O)
+	$(GC) -o almanac.$(O) almanac.go
+	$(LD) -o almanac almanac.$(O)
 
-forecast: forecast.o
-	$(L) -o forecast forecast.$(SFX)
+astronomy:	astronomy.go utils.$(O)
+	$(GC) -o astronomy.$(O) astronomy.go
+	$(LD) -o astronomy astronomy.$(O)
 
-forecast.o: utils.o
-	$(C) forecast.go
+slookup:	slookup.go utils.$(O)
+	$(GC) -o slookup.$(O) slookup.go
+	$(LD) -o slookup slookup.$(O)
 
-alerts: alerts.o
-	$(L) -o alerts alerts.$(SFX)
+alerts:	alerts.go utils.$(O)
+	$(GC) -o alerts.$(O) alerts.go
+	$(LD) -o alerts alerts.$(O)
 
-alerts.o: utils.o
-	$(C) alerts.go
+forecast:	forecast.go utils.$(O)
+	$(GC) -o forecast.$(O) forecast.go
+	$(LD) -o forecast forecast.$(O)
 
-slookup: slookup.o
-	$(L) -o slookup slookup.$(SFX)
-
-slookup.o: utils.o
-	$(C) slookup.go
-
-astronomy: astronomy.o
-	$(L) -o astronomy astronomy.$(SFX)
-
-astronomy.o: utils.o
-	$(C) astronomy.go
-
-almanac: almanac.o
-	$(L) -o almanac almanac.$(SFX)
-
-almanac.o: utils.o
-	$(C) almanac.go
-
-utils.o:
-	$(C) utils.go 
+utils.$(O):	utils.go
+	$(GC) utils.go 
 
 format:
 	gofmt -tabwidth=2 -w=true conditions.go
