@@ -23,7 +23,7 @@ type Config struct {
 
 var (
 	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doastro bool
-	conf                                                                            Config
+	conf                                                                                   Config
 )
 
 const defaultStation = "KLNK"
@@ -393,7 +393,6 @@ func printLookup(obs *Lookup) {
 
 // weather prints various weather information for a specified station
 func weather(operation string, station string) {
-	fmt.Printf("--- %s %s ---\n", station, operation)
 	url := BuildURL(operation, station)
 	b, err := Fetch(url)
 	CheckError(err)
@@ -460,5 +459,8 @@ func main() {
 	}
 	if dolookup {
 		weather("geolookup", stationId)
+	}
+	if flag.NFlag() == 0 {
+		weather("conditions", stationId)
 	}
 }
