@@ -2,7 +2,9 @@
 Conditions
 ==========
 
-Version 2.0.4.
+Version 3.0.0.
+
+__Note: Version 3 consolidates all functionality into a single command ("wu").  "wu -h" will show you how to use it, but this README is badly out of date.  We'll update it soon.__
 
 Conditions is a suite of small command-line applications that retrieve weather data from [Weather Underground](http://www.wunderground.com).  The programs are designed to be extremely fast and generally conformant with the [UNIX philosophy](http://en.wikipedia.org/wiki/Unix_philosophy).
 
