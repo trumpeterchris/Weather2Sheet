@@ -74,6 +74,15 @@ func Options() string {
 		"Weather station: \"city, state-abbreviation\", (US or Canadian) zipcode, 3- or 4-letter airport code, or LAT,LONG")
 	flag.Parse()
 
+	if dolookup {
+		if len(os.Args) == 3 {
+			station = os.Args[len(os.Args)-1]
+		} else {
+			fmt.Println("Usage: wu -lookup [station] where station is a \"city, state-abbreviation\", (US or Canadian) zipcode, 3- or 4-letter airport code, or LAT,LONG")
+			os.Exit(0)
+		}
+	}
+
 	if help {
 		flag.PrintDefaults()
 		os.Exit(0)
@@ -81,13 +90,13 @@ func Options() string {
 
 	if version {
 		fmt.Println("conditions " + GetVersion())
-		fmt.Println("Copyright (C) 2011 by Stephen Ramsay")
-		fmt.Println("Data courtesy of Weather Underground, Inc.")
-		fmt.Println("is subject to Weather Underground Data Feed")
-		fmt.Println("Terms of Service.  The program itself is free")
-		fmt.Println("software, and you are welcome to redistribute")
-		fmt.Println("it under certain conditions.  See LICENSE for")
-		fmt.Println("details.")
+		fmt.Println("Copyright  2011 by Stephen Ramsay and")
+		fmt.Println("Anthony Starks. Data courtesy of Weather")
+		fmt.Println("Underground, Inc. is subject to Weather")
+		fmt.Println("Underground Data Feed Terms of Service.")
+		fmt.Println("The program itself is free software, and")
+		fmt.Println("you are welcome to redistribute it under")
+		fmt.Println("certain conditions.  See LICENSE for details.")
 		os.Exit(0)
 	}
 
