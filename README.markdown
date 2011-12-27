@@ -2,7 +2,7 @@
 Conditions
 ==========
 
-Version 3.0.0.
+Version 3.1.0.
 
 __Note: Version 3 consolidates all functionality into a single command ("wu").  "wu -h" will show you how to use it, but this README is badly out of date.  We'll update it soon.__
 
