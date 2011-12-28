@@ -22,7 +22,7 @@
 * You should have received a copy of the GNU General Public License
 * along with wu; see the file COPYING.  If not see
 * <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package main
 
@@ -44,8 +44,8 @@ type Config struct {
 }
 
 var (
-	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doastro bool
-	conf                                                                                   Config
+	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doastro, doyesterday bool
+	conf                                                                                                Config
 )
 
 const defaultStation = "KLNK"
@@ -90,12 +90,14 @@ func Options() string {
 	flag.BoolVar(&doastro, "astro", false, "Reports sunrise, sunset, and lunar phase")
 	flag.BoolVar(&doforecast, "forecast", false, "Reports the current forecast")
 	flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
+	flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print the version number")
 	flag.StringVar(&station, "s", sconf,
 		"Weather station: \"city, state-abbreviation\", (US or Canadian) zipcode, 3- or 4-letter airport code, or LAT,LONG")
 	flag.Parse()
 
+	// Check for correct usage of wu -lookup
 	if dolookup {
 		if len(os.Args) == 3 {
 			station = os.Args[len(os.Args)-1]
@@ -124,7 +126,6 @@ func Options() string {
 
 	// Trap for city-state combinations (e.g. "San Francisco, CA") and
 	// make them URL-friendly (e.g. "CA/SanFranciso")
-
 	cityStatePattern := regexp.MustCompile("([A-Za-z ]+), ([A-Za-z ]+)")
 	cityState := cityStatePattern.FindStringSubmatch(station)
 
@@ -389,6 +390,196 @@ func printConditions(obs *Conditions) {
 	}
 }
 
+//////////////////////
+
+type YesterdayConditions struct {
+	History History
+}
+
+type History struct {
+	Dailysummary []Dailysummary
+}
+
+type Dailysummary struct {
+	Fog                                string
+	Rain                               string
+	Snow                               string
+	Snowfallm                          string
+	Snowfalli                          string
+	Monthtodatesnowfallm               string
+	Monthtodatesnowfalli               string
+	Since1julsnowfallm                 string
+	Since1julsnowfalli                 string
+	Snowdepthm                         string
+	Snowdepthi                         string
+	Hail                               string
+	Thunder                            string
+	Tornado                            string
+	Meantempm                          string
+	Meantempi                          string
+	Meandewptm                         string
+	Meandewpti                         string
+	Meanpressurem                      string
+	Meanpressurei                      string
+	Meanwindspdm                       string
+	Meanwindspdi                       string
+	Meanwdire                          string
+	Meanwdird                          string
+	Meanvism                           string
+	Meanvisi                           string
+	Humidity                           string
+	Maxtempm                           string
+	Maxtempi                           string
+	Mintempm                           string
+	Mintempi                           string
+	Maxhumidity                        string
+	Minhumidity                        string
+	Maxdewptm                          string
+	Maxdewpti                          string
+	Mindewptm                          string
+	Mindewpti                          string
+	Maxpressurem                       string
+	Maxpressurei                       string
+	Minpressurem                       string
+	Minpressurei                       string
+	Maxwspdm                           string
+	Maxwspdi                           string
+	Minwspdm                           string
+	Minwspdi                           string
+	Maxvism                            string
+	Maxvisi                            string
+	Minvism                            string
+	Minvisi                            string
+	Gdegreedays                        string
+	Heatingdegreedays                  string
+	Coolingdegreedays                  string
+	Precipm                            string
+	Precipi                            string
+	Heatingdegreedaysnormal            string
+	Monthtodateheatingdegreedays       string
+	Monthtodateheatingdegreedaysnormal string
+	Since1sepheatingdegreedays         string
+	Since1sepheatingdegreedaysnormal   string
+	Since1julheatingdegreedays         string
+	Since1julheatingdegreedaysnormal   string
+	Coolingdegreedaysnormal            string
+	Monthtodatecoolingdegreedays       string
+	Monthtodatecoolingdegreedaysnormal string
+	Since1sepcoolingdegreedays         string
+	Since1sepcoolingdegreedaysnormal   string
+	Since1jancoolingdegreedays         string
+	Since1jancoolingdegreedaysnormal   string
+}
+
+func printYesterday(obs *YesterdayConditions, stationId string) {
+  history := obs.History.Dailysummary[0]
+  fmt.Print("Weather summary for yesterday: ")
+  if history.Fog == "1" {fmt.Print("fog ")}
+  if history.Rain == "1" {fmt.Print("rain ")}
+  if history.Snow == "1" {fmt.Print("snow ")}
+  if history.Hail == "1" {fmt.Print("hail ")}
+  if history.Tornado == "1" {fmt.Print("tornado ")}
+  fmt.Print("\n")
+
+  // if "month to date" is nil, it likely means that the station
+  // doesn't report full almanac information (which is frequently
+  // the case for non-U.S (NWS) station sources.  This may be the
+  // case for several measurements in this section.
+  if history.Snow == "1" && history.Monthtodatesnowfalli != "" {
+    fmt.Println("   Snow:")
+    if history.Snowfalli == "T" {
+      fmt.Println("     Yesterday: trace")
+    } else if history.Snowfalli != "" {
+      fmt.Printf("     Yesterday: %s in (%s mm)\n", history.Snowfalli, history.Snowfallm)
+    }
+    fmt.Printf("     Snow depth: %s in (%s mm)\n", history.Snowdepthi, history.Snowdepthm)
+    fmt.Printf("     Month to date: %s in (%s mm)\n", history.Monthtodatesnowfalli, history.Monthtodatesnowfallm)
+    fmt.Printf("     Since July 1st: %s in (%s mm)\n", history.Since1julsnowfalli, history.Since1julsnowfallm)
+  }
+  if history.Rain == "1" {
+    fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
+  }
+  fmt.Println("   Temperature:")
+  fmt.Printf("      Mean Temperature: %s F (%s C)\n", history.Meantempi, history.Meantempm)
+  fmt.Printf("      Max Temperature: %s F (%s C)\n", history.Maxtempi, history.Maxtempm)
+  fmt.Printf("      Min Temperature: %s F (%s C)\n", history.Mintempi, history.Mintempm)
+  fmt.Println("   Degree Days:")
+  if history.Heatingdegreedays != "" {
+    fmt.Print("      Heating Degree Days: " + history.Heatingdegreedays)
+    if history.Heatingdegreedaysnormal != "" {
+      fmt.Printf(" (%s days normal)\n", history.Heatingdegreedaysnormal)
+    } else {
+      fmt.Print("\n")
+    }
+    if history.Heatingdegreedaysnormal != "" {
+      fmt.Printf("         HDG month to date: %s (%s days normal)\n", history.Monthtodateheatingdegreedays, history.Monthtodateheatingdegreedaysnormal)
+      if history.Since1julheatingdegreedaysnormal == "" {
+        fmt.Printf("         HDG since Sept 1st: %s (%s days normal)\n", history.Since1sepheatingdegreedays, history.Since1sepheatingdegreedaysnormal)
+      } else {
+        fmt.Printf("         HDG since July 1st: %s (%s days normal)\n", history.Since1julheatingdegreedays, history.Since1julheatingdegreedaysnormal)
+      }
+    } else {
+      fmt.Print("\n")
+    }
+  }
+  if history.Coolingdegreedaysnormal != "" {
+    fmt.Print("      Cooling Degree Days: " + history.Coolingdegreedays)
+    if history.Coolingdegreedaysnormal != "" {
+      fmt.Printf(" (%s days normal)\n", history.Coolingdegreedaysnormal)
+    } else {
+      fmt.Print("\n")
+    }
+    if history.Coolingdegreedaysnormal != "" {
+      fmt.Printf("         CDG month to date: %s (%s days normal)\n", history.Monthtodatecoolingdegreedays, history.Monthtodatecoolingdegreedaysnormal)
+      if history.Since1jancoolingdegreedaysnormal == "" {
+        fmt.Printf("         CDG since Sept 1st: %s (%s days normal)\n", history.Since1sepcoolingdegreedays, history.Since1sepcoolingdegreedaysnormal)
+      } else {
+        fmt.Printf("         CDG since Jan 1st: %s (%s days normal)\n", history.Since1jancoolingdegreedays, history.Since1jancoolingdegreedaysnormal)
+      }
+    } else {
+      fmt.Print("\n")
+    }
+  }
+
+  // Moisture
+
+  fmt.Println("   Moisture:")
+  fmt.Printf("      Mean Dew Point: %s (%s C)\n", history.Meandewpti, history.Meandewptm)
+  fmt.Printf("      Max Dew Point: %s (%s C)\n", history.Maxdewpti, history.Maxdewptm)
+  fmt.Printf("      Min Dew Point: %s (%s C)\n", history.Mindewpti, history.Mindewptm)
+  if history.Humidity != "" {
+    fmt.Printf("      Humidity: %s%%\n", history.Humidity)
+  }
+  fmt.Printf("      Max Humidity: %s%%\n", history.Maxhumidity)
+  fmt.Printf("      Min Humidity: %s%%\n", history.Minhumidity)
+
+
+//	Meanpressurem
+//	Meanpressurei
+//	Maxpressurem
+//	Maxpressurei
+//	Minpressurem
+//	Minpressurei
+
+//	Meanwindspdm
+//	Meanwindspdi
+//	Meanwdire
+//	Meanwdird
+//	Meanvism
+//	Meanvisi
+//	Maxwspdm
+//	Maxwspdi
+//	Minwspdm
+//	Minwspdi
+//	Maxvism
+//	Maxvisi
+//	Minvism
+//	Minvisi
+//	Gdegreedays
+}
+
+//////////////////////////
+
 type Lookup struct {
 	Location SLocation
 }
@@ -454,6 +645,11 @@ func weather(operation string, station string) {
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
 		printForecast(&obs, station)
+	case "yesterday":
+		var obs YesterdayConditions
+		jsonErr := json.Unmarshal(b, &obs)
+		CheckError(jsonErr)
+		printYesterday(&obs, station)
 	case "geolookup":
 		var l Lookup
 		jsonErr := json.Unmarshal(b, &l)
@@ -487,6 +683,9 @@ func main() {
 	}
 	if doforecast {
 		weather("forecast", stationId)
+	}
+	if doyesterday {
+		weather("yesterday", stationId)
 	}
 	if dolookup {
 		weather("geolookup", stationId)
