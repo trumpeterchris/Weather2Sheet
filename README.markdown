@@ -5,21 +5,21 @@ Wu
 Version 3.2.0.
 
 
-Wu is a fast small command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
+_wu_ is a fast small command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
 Description
 -----------
 
-To use Wu, you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station to $HOME/.condrc:
+To use _wu,_ you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station to $HOME/.condrc:
 
 	{
 	  "key": "YOUR_API_KEY",
 	  "station": "Lincoln, NE"
 	}
 
-(the above is available in the Wu root directory as "condrc")
+(the above is available in the wu root directory as "condrc")
 
-Wu has the following major options:
+wu has the following major options:
 
 * _--conditions_ reports the current weather conditions.
 
@@ -39,7 +39,7 @@ Wu has the following major options:
 	
 All six commands understand the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long").
 
-Wu also has two additional switches that provide information about the program:
+wu also has two additional switches that provide information about the program:
 
 * -h help
 * -V version
@@ -47,7 +47,7 @@ Wu also has two additional switches that provide information about the program:
 Installing Wu 
 -----------
 
-The easiest way to install Wu (assuming you have both [Git](http://git-scm.com/) and a Go compiler) is to type:
+The easiest way to install wu (assuming you have both [Git](http://git-scm.com/) and a Go compiler) is to type:
 
   GOPATH=[PATH] goinstall -u github.com/sramsay/wu/wu
 
@@ -65,10 +65,10 @@ If you don't have a Go compiler, you'll need to install one.  Detailed instructi
 
 (substituting 386 for amd64, and darwin|freebsd for linux as appropriate).
 
-Building Wu from Source
+Building wu from Source
 -----------------------
 
-To obtain the source code for Wu:
+To obtain the source code for wu:
 
   git clone git@github.com:sramsay/wu.git
 
@@ -78,7 +78,7 @@ To compile:
 	make
   GOPATH=/usr/local/bin make install
 
-Wu should work on any system that can compile Go programs.
+wu should work on any system that can compile Go programs.
 
 License(s)
 ---------
@@ -96,4 +96,4 @@ Data courtesy of Weather Underground, Inc. (WUI) is subject to the [Weather Unde
 Thanks
 ------
 
-Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as Wu.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.
+Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as wu.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.
