@@ -1,35 +1,14 @@
 
-Conditions
+Wu
 ==========
 
 Version 3.2.0.
 
-__Note: Version 3 consolidates all functionality into a single command ("wu").  "wu -h" will show you how to use it, but this README is badly out of date.  We'll update it soon.__
 
-Conditions is a suite of small command-line applications that retrieve weather data from [Weather Underground](http://www.wunderground.com).  The programs are designed to be extremely fast and generally conformant with the [UNIX philosophy](http://en.wikipedia.org/wiki/Unix_philosophy).
+Wu is a fast small command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
 Description
 -----------
-
-Conditions consists of six command-line applications.
-
-* _conditions_ reports the current weather conditions.
-
-* _forecast_ gives the current forecast.
-
-* _alerts_ reports any active weather alerts.
-
-* _slookup_ allows you to determine the codes for the various weather stations in a particular area.
-
-* _astronomy_ reports sunrise, sunset, and lunar phase.
-
-* _almanac_ reports average high and low temperatures, as well as record temperatures for the day.
-	
-All six commands understand the following switches:
-
-* -s location (which can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long").
-* -h help
-* -V version
 
 To use conditions, you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station to $HOME/.condrc:
 
@@ -40,15 +19,43 @@ To use conditions, you need to obtain an API key from Weather Underground [http:
 
 (the above is available in the conditions root directory as "condrc")
 
+Wu has the following major options:
+
+* _--conditions_ reports the current weather conditions.
+
+* _--forecast_ gives the current forecast.
+
+* _--alerts_ reports any active weather alerts.
+
+* _--lookup_ allows you to determine the codes for the various weather stations in a particular area.
+
+* _--astronomy_ reports sunrise, sunset, and lunar phase.
+
+* _--almanac_ reports average high and low temperatures, as well as record temperatures for the day.
+
+* _--yesterday_ reports detailed alamanac information for the previous day.
+	
+All six commands understand the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long").
+
+Wu also has two additional switches that provide information about the program:
+
+* -h help
+* -V version
+
 Building Conditions
 -------------------
 
+To obtain the source code for Wu:
+
+  git clone git@github.com:sramsay/wu.git
+
 Conditions is written in [Go](http://golang.org), and thus requires a working Go compiler.  Assuming you have one of those:
 
-	cd conditions/src
+	cd wu/wu
 	make
+  GOPATH=/usr/local/bin make install
 
-If you don't have one of those, you'll need to install it.  Detailed instructions are [here](http://golang.org/doc/install.html).  But in brief:
+If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).  But in brief:
 
 	hg clone -u release https://go.googlecode.com/hg/ go
 	cd go/src
@@ -65,7 +72,7 @@ Then proceed with the above.
 License(s)
 ---------
 
-Conditions is written and maintained by [Stephen Ramsay](http://lenz.unl.edu/) (sramsay{dot}unl{at}gmail{dot}com) and [Anthony Starks](http://mindchunk.blogspot.com/).
+Wu is written and maintained by [Stephen Ramsay](http://lenz.unl.edu/) (sramsay{dot}unl{at}gmail{dot}com) and [Anthony Starks](http://mindchunk.blogspot.com/).
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -78,4 +85,4 @@ Data courtesy of Weather Underground, Inc. (WUI) is subject to the [Weather Unde
 Thanks
 ------
 
-Conditions was heavily inspired -- and indeed, might be considered a clean-room implementation of -- Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as conditions.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.
+Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as conditions.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.
