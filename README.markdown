@@ -33,7 +33,7 @@ wu has the following major options:
 
 * _--almanac_ reports average high and low temperatures, as well as record temperatures for the day.
 
-* _--yesterday_ reports detailed alamanac information for the previous day.
+* _--yesterday_ gives detailed almanac information for the previous day.
 
 * _--all_ generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
@@ -43,6 +43,8 @@ wu also has two additional switches that provide information about the program:
 
 * -h help
 * -V version
+
+By itself, the wu command will show the current conditions.
 
 Installing Wu 
 -----------
