@@ -485,6 +485,9 @@ func printYesterday(obs *YesterdayConditions, stationId string) {
   // doesn't report full almanac information (which is frequently
   // the case for non-U.S (NWS) station sources.  This may be the
   // case for several measurements in this section.
+
+  // Snow
+
   if history.Snow == "1" && history.Monthtodatesnowfalli != "" {
     fmt.Println("   Snow:")
     if history.Snowfalli == "T" {
@@ -496,13 +499,22 @@ func printYesterday(obs *YesterdayConditions, stationId string) {
     fmt.Printf("     Month to date: %s in (%s mm)\n", history.Monthtodatesnowfalli, history.Monthtodatesnowfallm)
     fmt.Printf("     Since July 1st: %s in (%s mm)\n", history.Since1julsnowfalli, history.Since1julsnowfallm)
   }
+
+  // Precipitation
+
   if history.Rain == "1" {
     fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
   }
+
+  // Temperature
+
   fmt.Println("   Temperature:")
   fmt.Printf("      Mean Temperature: %s F (%s C)\n", history.Meantempi, history.Meantempm)
   fmt.Printf("      Max Temperature: %s F (%s C)\n", history.Maxtempi, history.Maxtempm)
   fmt.Printf("      Min Temperature: %s F (%s C)\n", history.Mintempi, history.Mintempm)
+
+  // Degree Days
+
   fmt.Println("   Degree Days:")
   if history.Heatingdegreedays != "" {
     fmt.Print("      Heating Degree Days: " + history.Heatingdegreedays)
@@ -553,32 +565,29 @@ func printYesterday(obs *YesterdayConditions, stationId string) {
   fmt.Printf("      Max Humidity: %s%%\n", history.Maxhumidity)
   fmt.Printf("      Min Humidity: %s%%\n", history.Minhumidity)
 
+  // Pressure
 
-//	Meanpressurem
-//	Meanpressurei
-//	Maxpressurem
-//	Maxpressurei
-//	Minpressurem
-//	Minpressurei
+  fmt.Println("   Pressure:")
+  fmt.Printf("      Mean Pressure: %s in (%s mb)\n", history.Meanpressurei, history.Meanpressurem)
+  fmt.Printf("      Max Pressure: %s in (%s mb)\n", history.Maxpressurei, history.Maxpressurem)
+  fmt.Printf("      Min Pressure: %s in (%s mb)\n", history.Minpressurei, history.Minpressurem)
 
-//	Meanwindspdm
-//	Meanwindspdi
-//	Meanwdire
-//	Meanwdird
-//	Meanvism
-//	Meanvisi
-//	Maxwspdm
-//	Maxwspdi
-//	Minwspdm
-//	Minwspdi
-//	Maxvism
-//	Maxvisi
-//	Minvism
-//	Minvisi
-//	Gdegreedays
+  // Wind
+
+  fmt.Println("   Wind:")
+  fmt.Printf("      Mean Wind Speed: %s mph (%s kph)\n", history.Meanwindspdi, history.Meanwindspdm)
+  fmt.Printf("      Max Wind Speed: %s mph (%s kph)\n", history.Maxwspdi, history.Maxwspdm)
+  fmt.Printf("      Min Wind Speed: %s mph (%s kph)\n", history.Minwspdi, history.Minwspdm)
+  fmt.Printf("      Mean Wind Direction: %s°\n", history.Meanwdird)
+
+  // Visibility
+
+  fmt.Println("   Visibility:")
+  fmt.Printf("      Mean Visibility %s mi (%s km)\n", history.Meanvisi, history.Meanvism)
+  fmt.Printf("      Max Visibility %s mi (%s km)\n", history.Maxvisi, history.Maxvism)
+  fmt.Printf("      Min Visibility %s mi (%s km)\n", history.Minvisi, history.Minvism)
+
 }
-
-//////////////////////////
 
 type Lookup struct {
 	Location SLocation
