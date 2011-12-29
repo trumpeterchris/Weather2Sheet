@@ -49,13 +49,7 @@ By itself, the wu command will show the current conditions.
 Installing Wu 
 -----------
 
-The easiest way to install wu (assuming you have both [Git](http://git-scm.com/) and a Go compiler) is to type:
-
-  GOPATH=[PATH] goinstall -u github.com/sramsay/wu/wu
-
-where [PATH] is the directory you'd like it installed (e.g. /usr/local/bin).
-
-If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).  But in brief:
+Wu is written in the [Go programming language](http://golang.org/).  If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).  But in brief:
 
 	hg clone -u release https://go.googlecode.com/hg/ go
 	cd go/src
