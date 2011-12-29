@@ -10,14 +10,14 @@ Wu is a fast small command-line application that retrieves weather data from [We
 Description
 -----------
 
-To use conditions, you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station to $HOME/.condrc:
+To use Wu, you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station to $HOME/.condrc:
 
 	{
 	  "key": "YOUR_API_KEY",
 	  "station": "Lincoln, NE"
 	}
 
-(the above is available in the conditions root directory as "condrc")
+(the above is available in the Wu root directory as "condrc")
 
 Wu has the following major options:
 
@@ -27,13 +27,15 @@ Wu has the following major options:
 
 * _--alerts_ reports any active weather alerts.
 
-* _--lookup_ allows you to determine the codes for the various weather stations in a particular area.
+* _--lookup_ [STATION] allows you to determine the codes for the various weather stations in a particular area.  The format for STATION is the same as that for the -s switch below.
 
 * _--astronomy_ reports sunrise, sunset, and lunar phase.
 
 * _--almanac_ reports average high and low temperatures, as well as record temperatures for the day.
 
 * _--yesterday_ reports detailed alamanac information for the previous day.
+
+* _--all_ generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
 All six commands understand the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long").
 
@@ -42,18 +44,14 @@ Wu also has two additional switches that provide information about the program:
 * -h help
 * -V version
 
-Building Conditions
--------------------
+Installing Wu 
+-----------
 
-To obtain the source code for Wu:
+The easiest way to install Wu (assuming you have both [Git](http://git-scm.com/) and a Go compiler) is to type:
 
-  git clone git@github.com:sramsay/wu.git
+  GOPATH=[PATH] goinstall -u github.com/sramsay/wu/wu
 
-Conditions is written in [Go](http://golang.org), and thus requires a working Go compiler.  Assuming you have one of those:
-
-	cd wu/wu
-	make
-  GOPATH=/usr/local/bin make install
+where [PATH] is the directory you'd like it installed (e.g. /usr/local/bin).
 
 If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).  But in brief:
 
@@ -67,7 +65,20 @@ If you don't have a Go compiler, you'll need to install one.  Detailed instructi
 
 (substituting 386 for amd64, and darwin|freebsd for linux as appropriate).
 
-Then proceed with the above.
+Building Wu from Source
+-----------------------
+
+To obtain the source code for Wu:
+
+  git clone git@github.com:sramsay/wu.git
+
+To compile:
+
+	cd wu/wu
+	make
+  GOPATH=/usr/local/bin make install
+
+Wu should work on any system that can compile Go programs.
 
 License(s)
 ---------
@@ -85,4 +96,4 @@ Data courtesy of Weather Underground, Inc. (WUI) is subject to the [Weather Unde
 Thanks
 ------
 
-Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as conditions.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.
+Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as Wu.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.

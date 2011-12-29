@@ -83,7 +83,6 @@ func Options() string {
 		sconf = conf.Station
 	}
 
-	flag.BoolVar(&doall, "all", false, "show all weather data")
 	flag.BoolVar(&doconditions, "conditions", false, "Reports the current weather conditions")
 	flag.BoolVar(&doalerts, "alerts", false, "Reports any active weather alerts")
 	flag.BoolVar(&dolookup, "lookup", false, "Lookup the codes for the weather stations in a particular area")
@@ -93,6 +92,7 @@ func Options() string {
 	flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print the version number")
+	flag.BoolVar(&doall, "all", false, "Show all weather data")
 	flag.StringVar(&station, "s", sconf,
 		"Weather station: \"city, state-abbreviation\", (US or Canadian) zipcode, 3- or 4-letter airport code, or LAT,LONG")
 	flag.Parse()
@@ -670,11 +670,12 @@ func weather(operation string, station string) {
 func main() {
 	stationId := Options()
 	if doall {
-		weather("alerts", stationId)
-		weather("almanac", stationId)
-		weather("astronomy", stationId)
 		weather("conditions", stationId)
 		weather("forecast", stationId)
+		weather("alerts", stationId)
+		weather("almanac", stationId)
+		weather("yesterday", stationId)
+		weather("astronomy", stationId)
 		weather("geolookup", stationId)
 		os.Exit(0)
 	}
