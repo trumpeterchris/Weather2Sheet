@@ -32,10 +32,16 @@ import (
 	"os"
 	"regexp"
 	"strings"
-	"strconv"
 	"json"
 	"http"
 	"flag"
+  "./alerts"
+	"./almanac"
+	"./astro"
+	"./conditions"
+	"./forecast"
+	"./lookup"
+	"./yesterday"
 )
 
 type Config struct {
@@ -628,40 +634,40 @@ func weather(operation string, station string) {
 
 	switch operation {
 	case "almanac":
-		var obs AlmanacConditions
+		var obs almanac.AlmanacConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		printAlmanac(&obs, station)
+		almanac.PrintAlmanac(&obs, station)
 	case "astronomy":
-		var obs AstroConditions
+		var obs astro.AstroConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		printAstro(&obs, station)
+		astro.PrintAstro(&obs, station)
 	case "alerts":
-		var obs AlertConditions
+		var obs alerts.AlertConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		printAlerts(&obs, station)
+		alerts.PrintAlerts(&obs, station)
 	case "conditions":
-		var obs Conditions
+		var obs conditions.Conditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		printConditions(&obs)
+		conditions.PrintConditions(&obs)
 	case "forecast":
-		var obs ForecastConditions
+		var obs forecast.ForecastConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		printForecast(&obs, station)
+		forecast.PrintForecast(&obs, station)
 	case "yesterday":
-		var obs YesterdayConditions
+		var obs yesterday.YesterdayConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		printYesterday(&obs, station)
+		yesterday.PrintYesterday(&obs, station)
 	case "geolookup":
-		var l Lookup
+		var l lookup.Lookup
 		jsonErr := json.Unmarshal(b, &l)
 		CheckError(jsonErr)
-		printLookup(&l)
+		lookup.PrintLookup(&l)
 	}
 }
 
