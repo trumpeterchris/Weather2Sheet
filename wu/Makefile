@@ -4,16 +4,45 @@ PREFIX = $(GOBIN)
 
 all: $(PROGS)
 
-wu:	wu.go
+wu: alerts almanac astro conditions forecast lookup yesterday
 	$(GC) -o wu.$(O) wu.go
 	$(LD) -o wu wu.$(O)
 
+alerts:
+	$(GC) -o alerts.$(O) alerts.go
+
+almanac:
+	$(GC) -o almanac.$(O) almanac.go
+
+astro:
+	$(GC) -o astro.$(O) astro.go
+
+conditions:
+	$(GC) -o conditions.$(O) conditions.go
+
+forecast:
+	$(GC) -o forecast.$(O) forecast.go
+
+lookup:
+	$(GC) -o lookup.$(O) lookup.go
+
+yesterday:
+	$(GC) -o yesterday.$(O) yesterday.go
+
+
 format:
-	gofmt -tabwidth=2 -w wu.go
+	  gofmt -tabwidth=2 -w wu.go
 
 clean:
 	rm -f $(PROGS)
 	rm -f wu.$(O)
+	rm -f alerts.$(O)
+	rm -f almanac.$(O)
+	rm -f astro.$(O)
+	rm -f conditions.$(O)
+	rm -f forecast.$(O)
+	rm -f lookup.$(O)
+	rm -f yesterday.$(O)
 
 install:
 	cp wu $(PREFIX)
