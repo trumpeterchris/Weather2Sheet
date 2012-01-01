@@ -123,8 +123,8 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
 	// Precipitation
 
 	if history.Rain == "1" {
-    if history.Rain == "T" {
-		  fmt.Printf("   Precipitation: trace\n", history.Precipi, history.Precipm)
+    if history.Precipi == "T" {
+		  fmt.Printf("   Precipitation: trace\n")
     } else {
 		  fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
     }
