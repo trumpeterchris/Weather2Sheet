@@ -131,10 +131,8 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
     fmt.Print("      Heating Degree Days: " + history.Heatingdegreedays)
     if history.Heatingdegreedaysnormal != "" {
       fmt.Printf(" (%s days normal)\n", history.Heatingdegreedaysnormal)
-    } else {
-      fmt.Print("\n")
     }
-    if history.Heatingdegreedaysnormal != "" {
+    if history.Heatingdegreedaysnormal != "" && history.Heatingdegreedaysnormal != "0" {
       fmt.Printf("         HDG month to date: %s (%s days normal)\n", history.Monthtodateheatingdegreedays, history.Monthtodateheatingdegreedaysnormal)
       if history.Since1julheatingdegreedaysnormal == "" {
         fmt.Printf("         HDG since Sept 1st: %s (%s days normal)\n", history.Since1sepheatingdegreedays, history.Since1sepheatingdegreedaysnormal)
@@ -145,7 +143,9 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
       fmt.Print("\n")
     }
   }
-  if history.Coolingdegreedaysnormal != "" {
+
+
+  if history.Coolingdegreedaysnormal != "" && history.Coolingdegreedaysnormal != "0" {
     fmt.Print("      Cooling Degree Days: " + history.Coolingdegreedays)
     if history.Coolingdegreedaysnormal != "" {
       fmt.Printf(" (%s days normal)\n", history.Coolingdegreedaysnormal)
