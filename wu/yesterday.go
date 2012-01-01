@@ -123,7 +123,11 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
 	// Precipitation
 
 	if history.Rain == "1" {
-		fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
+    if history.Rain == "T" {
+		  fmt.Printf("   Precipitation: trace\n", history.Precipi, history.Precipm)
+    } else {
+		  fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
+    }
 	}
 
 	// Temperature
