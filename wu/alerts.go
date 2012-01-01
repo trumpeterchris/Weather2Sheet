@@ -1,8 +1,7 @@
-
 package alerts
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type AlertConditions struct {

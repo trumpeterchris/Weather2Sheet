@@ -1,8 +1,7 @@
-
 package forecast
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type ForecastConditions struct {

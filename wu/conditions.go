@@ -1,9 +1,8 @@
-
 package conditions
 
 import (
-  "fmt"
-  "regexp"
+	"fmt"
+	"regexp"
 )
 
 type Conditions struct {

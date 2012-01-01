@@ -1,9 +1,8 @@
-
 package astro
 
 import (
-  "fmt"
-  "strconv"
+	"fmt"
+	"strconv"
 )
 
 type AstroConditions struct {

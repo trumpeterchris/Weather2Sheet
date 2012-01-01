@@ -1,8 +1,7 @@
-
 package almanac
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type AlmanacConditions struct {

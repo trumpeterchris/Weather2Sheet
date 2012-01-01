@@ -35,7 +35,7 @@ import (
 	"json"
 	"http"
 	"flag"
-  "./alerts"
+	"./alerts"
 	"./almanac"
 	"./astro"
 	"./conditions"

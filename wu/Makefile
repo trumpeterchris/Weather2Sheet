@@ -32,6 +32,13 @@ yesterday:
 
 format:
 	  gofmt -tabwidth=2 -w wu.go
+	  gofmt -tabwidth=2 -w alerts.go
+	  gofmt -tabwidth=2 -w almanac.go
+	  gofmt -tabwidth=2 -w astro.go
+	  gofmt -tabwidth=2 -w conditions.go
+	  gofmt -tabwidth=2 -w forecast.go
+	  gofmt -tabwidth=2 -w lookup.go
+	  gofmt -tabwidth=2 -w yesterday.go
 
 clean:
 	rm -f $(PROGS)
