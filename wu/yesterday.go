@@ -1,6 +1,10 @@
 package yesterday
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"strconv"
+)
 
 type YesterdayConditions struct {
 	History History
@@ -123,11 +127,11 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
 	// Precipitation
 
 	if history.Rain == "1" {
-    if history.Precipi == "T" {
-		  fmt.Printf("   Precipitation: trace\n")
-    } else {
-		  fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
-    }
+		if history.Precipi == "T" {
+			fmt.Printf("   Precipitation: trace\n")
+		} else {
+			fmt.Printf("   Precipitation: %s in (%s mm)\n", history.Precipi, history.Precipm)
+		}
 	}
 
 	// Temperature
@@ -201,7 +205,8 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
 	fmt.Printf("      Mean Wind Speed: %s mph (%s kph)\n", history.Meanwindspdi, history.Meanwindspdm)
 	fmt.Printf("      Max Wind Speed: %s mph (%s kph)\n", history.Maxwspdi, history.Maxwspdm)
 	fmt.Printf("      Min Wind Speed: %s mph (%s kph)\n", history.Minwspdi, history.Minwspdm)
-	fmt.Printf("      Mean Wind Direction: %s°\n", history.Meanwdird)
+	boxedPoint := boxCompass(history.Meanwdird)
+	fmt.Printf("      Mean Wind Direction: %s° (%s)\n", history.Meanwdird, boxedPoint)
 
 	// Visibility
 
@@ -209,5 +214,52 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
 	fmt.Printf("      Mean Visibility %s mi (%s km)\n", history.Meanvisi, history.Meanvism)
 	fmt.Printf("      Max Visibility %s mi (%s km)\n", history.Maxvisi, history.Maxvism)
 	fmt.Printf("      Min Visibility %s mi (%s km)\n", history.Minvisi, history.Minvism)
+
+}
+
+// Convert wind degrees to boxed compass points.
+func boxCompass(degreeString string) string {
+
+	var direction string
+
+	degrees, _ := strconv.Atof64(degreeString)
+	bearing := int(math.Floor((degrees / 22.5) + 0.5))
+
+	switch bearing {
+	case 1:
+		direction = "NNE"
+	case 2:
+		direction = "NE"
+	case 3:
+		direction = "ENE"
+	case 4:
+		direction = "E"
+	case 5:
+		direction = "ESE"
+	case 6:
+		direction = "SE"
+	case 7:
+		direction = "SSE"
+	case 8:
+		direction = "S"
+	case 9:
+		direction = "SSW"
+	case 10:
+		direction = "SW"
+	case 11:
+		direction = "WSW"
+	case 12:
+		direction = "W"
+	case 13:
+		direction = "WNW"
+	case 14:
+		direction = "NW"
+	case 15:
+		direction = "NNW"
+	default:
+		direction = "N"
+	}
+
+	return direction
 
 }
