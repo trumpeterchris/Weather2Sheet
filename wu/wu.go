@@ -2,6 +2,8 @@
 * wu - a small, fast command-line application for retrieving weather
 * data from Weather Underground
 *
+* Main and associated functions.
+*
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
@@ -58,7 +60,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "3.2.4"
+	return "3.2.5"
 }
 
 // GetConf returns the API key and weather station from
