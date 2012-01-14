@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Wed Dec 28 11:03:24 CST 2011
+* Last Modified: Sat Jan 14 16:55:51 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -43,8 +43,8 @@ import (
 	"./astro"
 	"./conditions"
 	"./forecast"
+  "./history"
 	"./lookup"
-	"./yesterday"
 )
 
 type Config struct {
@@ -54,14 +54,16 @@ type Config struct {
 
 var (
 	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doforecast7, doastro, doyesterday bool
-	conf                                                                                                             Config
+  dohistory string
+  date string
+	conf Config
 )
 
 const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "3.3.0"
+	return "3.4.0"
 }
 
 // GetConf returns the API key and weather station from
@@ -100,6 +102,7 @@ func Options() string {
 	flag.BoolVar(&doforecast7, "forecast7", false, "Reports the current (7-day) forecast")
 	flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
 	flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
+  flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print the version number")
 	flag.BoolVar(&doall, "all", false, "Show all weather data")
@@ -153,7 +156,15 @@ func BuildURL(infoType string, stationId string) string {
 	const URLstem = "http://api.wunderground.com/api/"
 	const query = "/q/"
 	const format = ".json"
-  return URLstem + conf.Key + "/" + infoType + query + stationId + format
+  date := dohistory
+  URL := ""
+  if date != "" {
+    URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
+  } else {
+    URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
+  }
+
+  return URL
 }
 
 // Fetch does URL processing
@@ -219,10 +230,15 @@ func weather(operation string, station string) {
 		CheckError(jsonErr)
 		forecast7.PrintForecast7(&obs, station)
 	case "yesterday":
-		var obs yesterday.YesterdayConditions
+		var obs history.HistoryConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		yesterday.PrintYesterday(&obs, station)
+		history.PrintHistory(&obs, station)
+  case "history":
+		var obs history.HistoryConditions
+		jsonErr := json.Unmarshal(b, &obs)
+		CheckError(jsonErr)
+		history.PrintHistory(&obs, station)
 	case "geolookup":
 		var l lookup.Lookup
 		jsonErr := json.Unmarshal(b, &l)
@@ -239,6 +255,7 @@ func main() {
 		weather("forecast7day", stationId)
 		weather("alerts", stationId)
 		weather("almanac", stationId)
+		weather("history", stationId)
 		weather("yesterday", stationId)
 		weather("astronomy", stationId)
 		weather("geolookup", stationId)
@@ -261,6 +278,9 @@ func main() {
 	}
 	if doforecast7 {
 		weather("forecast7day", stationId)
+	}
+	if dohistory != "" {
+		weather("history", stationId)
 	}
 	if doyesterday {
 		weather("yesterday", stationId)

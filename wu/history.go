@@ -1,13 +1,13 @@
 /*
-* yesterday.go
+* history.go
 *
 * This file is part of wu.  It contains functions related to
-* the -yesterday switch (historical data).
+* the --history and --yesterday switches (historical data).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Jan 08 16:46:08 CST 2012
+* Last Modified: Sat Jan 14 15:59:32 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -26,7 +26,7 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package yesterday
+package history
 
 import (
 	"fmt"
@@ -34,12 +34,17 @@ import (
 	"strconv"
 )
 
-type YesterdayConditions struct {
+type HistoryConditions struct {
 	History History
 }
 
 type History struct {
+  Date Date
 	Dailysummary []Dailysummary
+}
+
+type Date struct {
+  Pretty  string
 }
 
 type Dailysummary struct {
@@ -113,9 +118,9 @@ type Dailysummary struct {
 	Since1jancoolingdegreedaysnormal   string
 }
 
-func PrintYesterday(obs *YesterdayConditions, stationId string) {
+func PrintHistory(obs *HistoryConditions, stationId string) {
 	history := obs.History.Dailysummary[0]
-	fmt.Print("Weather summary for yesterday: ")
+  fmt.Printf("Weather summary for %s:", obs.History.Date.Pretty)
 	if history.Fog == "1" {
 		fmt.Print("fog ")
 	}
@@ -143,9 +148,9 @@ func PrintYesterday(obs *YesterdayConditions, stationId string) {
 	if history.Snow == "1" && history.Monthtodatesnowfalli != "" {
 		fmt.Println("   Snow:")
 		if history.Snowfalli == "T" {
-			fmt.Println("     Yesterday: trace")
+			fmt.Println("     trace\n")
 		} else if history.Snowfalli != "" {
-			fmt.Printf("     Yesterday: %s in (%s mm)\n", history.Snowfalli, history.Snowfallm)
+			fmt.Printf("     %s in (%s mm)\n", history.Snowfalli, history.Snowfallm)
 		}
 		fmt.Printf("     Snow depth: %s in (%s mm)\n", history.Snowdepthi, history.Snowdepthm)
 		fmt.Printf("     Month to date: %s in (%s mm)\n", history.Monthtodatesnowfalli, history.Monthtodatesnowfallm)

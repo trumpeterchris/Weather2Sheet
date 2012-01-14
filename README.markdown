@@ -2,7 +2,7 @@
 Wu
 ==========
 
-Version 3.3.0.
+Version 3.4.0.
 
 
 _wu_ is a fast small command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
@@ -36,6 +36,8 @@ wu has the following major options:
 * _--almanac_ reports average high and low temperatures, as well as record temperatures for the day.
 
 * _--yesterday_ gives detailed almanac information for the previous day.
+
+* _--history=YYYYMMDD_ gives detailed almanac information for a given day.
 
 * _--all_ generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
