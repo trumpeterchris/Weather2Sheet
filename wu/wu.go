@@ -153,7 +153,7 @@ func BuildURL(infoType string, stationId string) string {
 	const URLstem = "http://api.wunderground.com/api/"
 	const query = "/q/"
 	const format = ".json"
-	return URLstem + conf.Key + "/" + infoType + query + stationId + format
+  return URLstem + conf.Key + "/" + infoType + query + stationId + format
 }
 
 // Fetch does URL processing
