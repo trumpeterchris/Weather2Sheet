@@ -2,7 +2,7 @@
 * forecast7.go
 *
 * This file is part of wu.  It contains functions related to
-* the -7day switch (7-day forecast).
+* the -forecast7 switch (7-day forecast).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
