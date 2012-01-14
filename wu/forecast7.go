@@ -1,13 +1,13 @@
 /*
-* forecast.go
+* forecast7.go
 *
 * This file is part of wu.  It contains functions related to
-* the -forecast switch (3-day forecast).
+* the -7day switch (7-day forecast).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Jan 08 16:47:30 CST 2012
+* Last Modified: Sat Jan 14 09:56:48 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -26,7 +26,7 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package forecast
+package forecast7
 
 import (
 	"fmt"
@@ -51,7 +51,7 @@ type Forecastday struct {
 }
 
 // printForecast prints the forecast for a given station to standard out
-func PrintForecast(obs *ForecastConditions, stationId string) {
+func PrintForecast7(obs *ForecastConditions, stationId string) {
 	t := obs.Forecast.Txt_forecast
 	fmt.Printf("Forecast for %s\n", stationId)
 	fmt.Printf("Issued at %s\n", t.Date)

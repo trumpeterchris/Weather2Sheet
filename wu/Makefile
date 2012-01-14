@@ -4,7 +4,7 @@ PREFIX = $(GOBIN)
 
 all: $(PROGS)
 
-wu: alerts almanac astro conditions forecast lookup yesterday
+wu: alerts almanac astro conditions forecast forecast7 lookup yesterday
 	$(GC) -o wu.$(O) wu.go
 	$(LD) -o wu wu.$(O)
 
@@ -23,6 +23,9 @@ conditions:
 forecast:
 	$(GC) -o forecast.$(O) forecast.go
 
+forecast7:
+	$(GC) -o forecast7.$(O) forecast7.go
+
 lookup:
 	$(GC) -o lookup.$(O) lookup.go
 
@@ -37,6 +40,7 @@ format:
 	  gofmt -tabwidth=2 -w astro.go
 	  gofmt -tabwidth=2 -w conditions.go
 	  gofmt -tabwidth=2 -w forecast.go
+	  gofmt -tabwidth=2 -w forecast7.go
 	  gofmt -tabwidth=2 -w lookup.go
 	  gofmt -tabwidth=2 -w yesterday.go
 
@@ -48,6 +52,7 @@ clean:
 	rm -f astro.$(O)
 	rm -f conditions.$(O)
 	rm -f forecast.$(O)
+	rm -f forecast7.$(O)
 	rm -f lookup.$(O)
 	rm -f yesterday.$(O)
 

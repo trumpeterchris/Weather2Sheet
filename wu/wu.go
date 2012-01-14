@@ -37,6 +37,7 @@ import (
 	"json"
 	"http"
 	"flag"
+	"./forecast7"
 	"./alerts"
 	"./almanac"
 	"./astro"
@@ -52,15 +53,15 @@ type Config struct {
 }
 
 var (
-	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doastro, doyesterday bool
-	conf                                                                                                Config
+	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doforecast7, doastro, doyesterday bool
+	conf                                                                                                             Config
 )
 
 const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "3.2.5"
+	return "3.3.0"
 }
 
 // GetConf returns the API key and weather station from
@@ -95,7 +96,8 @@ func Options() string {
 	flag.BoolVar(&doalerts, "alerts", false, "Reports any active weather alerts")
 	flag.BoolVar(&dolookup, "lookup", false, "Lookup the codes for the weather stations in a particular area")
 	flag.BoolVar(&doastro, "astro", false, "Reports sunrise, sunset, and lunar phase")
-	flag.BoolVar(&doforecast, "forecast", false, "Reports the current forecast")
+	flag.BoolVar(&doforecast, "forecast", false, "Reports the current (3-day) forecast")
+	flag.BoolVar(&doforecast7, "forecast7", false, "Reports the current (7-day) forecast")
 	flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
 	flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
 	flag.BoolVar(&help, "h", false, "Print this message")
@@ -211,6 +213,11 @@ func weather(operation string, station string) {
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
 		forecast.PrintForecast(&obs, station)
+	case "forecast7day":
+		var obs forecast7.ForecastConditions
+		jsonErr := json.Unmarshal(b, &obs)
+		CheckError(jsonErr)
+		forecast7.PrintForecast7(&obs, station)
 	case "yesterday":
 		var obs yesterday.YesterdayConditions
 		jsonErr := json.Unmarshal(b, &obs)
@@ -229,6 +236,7 @@ func main() {
 	if doall {
 		weather("conditions", stationId)
 		weather("forecast", stationId)
+		weather("forecast7day", stationId)
 		weather("alerts", stationId)
 		weather("almanac", stationId)
 		weather("yesterday", stationId)
@@ -250,6 +258,9 @@ func main() {
 	}
 	if doforecast {
 		weather("forecast", stationId)
+	}
+	if doforecast7 {
+		weather("forecast7day", stationId)
 	}
 	if doyesterday {
 		weather("yesterday", stationId)
