@@ -23,7 +23,9 @@ wu has the following major options:
 
 * _--conditions_ reports the current weather conditions.
 
-* _--forecast_ gives the current forecast.
+* _--forecast_ gives the current (3-day) forecast.
+
+* _--forecast7_ gives the current (7-day) forecast.
 
 * _--alerts_ reports any active weather alerts.
 
