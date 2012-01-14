@@ -120,21 +120,21 @@ type Dailysummary struct {
 
 func PrintHistory(obs *HistoryConditions, stationId string) {
 	history := obs.History.Dailysummary[0]
-  fmt.Printf("Weather summary for %s:", obs.History.Date.Pretty)
+  fmt.Printf("Weather summary for %s: ", obs.History.Date.Pretty)
 	if history.Fog == "1" {
-		fmt.Print("fog ")
+		fmt.Print(" fog ")
 	}
 	if history.Rain == "1" {
-		fmt.Print("rain ")
+		fmt.Print(" rain ")
 	}
 	if history.Snow == "1" {
-		fmt.Print("snow ")
+		fmt.Print(" snow ")
 	}
 	if history.Hail == "1" {
-		fmt.Print("hail ")
+		fmt.Print(" hail ")
 	}
 	if history.Tornado == "1" {
-		fmt.Print("tornado ")
+		fmt.Print(" tornado ")
 	}
 	fmt.Print("\n")
 
