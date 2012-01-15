@@ -44,6 +44,7 @@ import (
 	"./conditions"
 	"./forecast"
   "./history"
+  "./planner"
 	"./lookup"
 )
 
@@ -55,6 +56,7 @@ type Config struct {
 var (
 	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doforecast7, doastro, doyesterday bool
   dohistory string
+  doplanner string
   date string
 	conf Config
 )
@@ -63,7 +65,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "3.4.1"
+	return "3.5.0"
 }
 
 // GetConf returns the API key and weather station from
@@ -78,7 +80,7 @@ func ReadConf() {
 		CheckError(jsonErr)
 	} else {
 		fmt.Println("You must create a .condrc file in $HOME.")
-		os.Exit(1)
+		os.Exit(0)
 	}
 }
 
@@ -103,6 +105,7 @@ func Options() string {
 	flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
 	flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
   flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
+  flag.StringVar(&doplanner, "planner", "", "Reports historical data for a particular date range (30-day max) --planner=\"MMDDMMDD\"")
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print the version number")
 	flag.BoolVar(&doall, "all", false, "Show all weather data")
@@ -156,7 +159,11 @@ func BuildURL(infoType string, stationId string) string {
 	const URLstem = "http://api.wunderground.com/api/"
 	const query = "/q/"
 	const format = ".json"
-  date := dohistory
+  if dohistory != "" {
+    date = dohistory
+  } else if doplanner != "" {
+    date = doplanner
+  }
   URL := ""
   if date != "" {
     URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
@@ -239,6 +246,11 @@ func weather(operation string, station string) {
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
 		history.PrintHistory(&obs, station)
+  case "planner":
+		var obs planner.PlannerConditions
+		jsonErr := json.Unmarshal(b, &obs)
+		CheckError(jsonErr)
+		planner.PrintPlanner(&obs, station)
 	case "geolookup":
 		var l lookup.Lookup
 		jsonErr := json.Unmarshal(b, &l)
@@ -256,6 +268,7 @@ func main() {
 		weather("alerts", stationId)
 		weather("almanac", stationId)
 		weather("history", stationId)
+		weather("planner", stationId)
 		weather("yesterday", stationId)
 		weather("astronomy", stationId)
 		weather("geolookup", stationId)
@@ -285,6 +298,9 @@ func main() {
 	if doyesterday {
 		weather("yesterday", stationId)
 	}
+  if doplanner != "" {
+    weather("planner", stationId)
+  }
 	if dolookup {
 		weather("geolookup", stationId)
 	}
