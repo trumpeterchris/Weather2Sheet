@@ -43,8 +43,8 @@ import (
 	"./astro"
 	"./conditions"
 	"./forecast"
-  "./history"
-  "./planner"
+	"./history"
+	"./planner"
 	"./lookup"
 )
 
@@ -55,10 +55,10 @@ type Config struct {
 
 var (
 	help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doforecast7, doastro, doyesterday bool
-  dohistory string
-  doplanner string
-  date string
-	conf Config
+	dohistory                                                                                                        string
+	doplanner                                                                                                        string
+	date                                                                                                             string
+	conf                                                                                                             Config
 )
 
 const defaultStation = "KLNK"
@@ -104,8 +104,8 @@ func Options() string {
 	flag.BoolVar(&doforecast7, "forecast7", false, "Reports the current (7-day) forecast")
 	flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
 	flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
-  flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
-  flag.StringVar(&doplanner, "planner", "", "Reports historical data for a particular date range (30-day max) --planner=\"MMDDMMDD\"")
+	flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
+	flag.StringVar(&doplanner, "planner", "", "Reports historical data for a particular date range (30-day max) --planner=\"MMDDMMDD\"")
 	flag.BoolVar(&help, "h", false, "Print this message")
 	flag.BoolVar(&version, "V", false, "Print the version number")
 	flag.BoolVar(&doall, "all", false, "Show all weather data")
@@ -159,19 +159,19 @@ func BuildURL(infoType string, stationId string) string {
 	const URLstem = "http://api.wunderground.com/api/"
 	const query = "/q/"
 	const format = ".json"
-  if dohistory != "" {
-    date = dohistory
-  } else if doplanner != "" {
-    date = doplanner
-  }
-  URL := ""
-  if date != "" {
-    URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
-  } else {
-    URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
-  }
+	if dohistory != "" {
+		date = dohistory
+	} else if doplanner != "" {
+		date = doplanner
+	}
+	URL := ""
+	if date != "" {
+		URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
+	} else {
+		URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
+	}
 
-  return URL
+	return URL
 }
 
 // Fetch does URL processing
@@ -241,12 +241,12 @@ func weather(operation string, station string) {
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
 		history.PrintHistory(&obs, station)
-  case "history":
+	case "history":
 		var obs history.HistoryConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
 		history.PrintHistory(&obs, station)
-  case "planner":
+	case "planner":
 		var obs planner.PlannerConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
@@ -298,9 +298,9 @@ func main() {
 	if doyesterday {
 		weather("yesterday", stationId)
 	}
-  if doplanner != "" {
-    weather("planner", stationId)
-  }
+	if doplanner != "" {
+		weather("planner", stationId)
+	}
 	if dolookup {
 		weather("geolookup", stationId)
 	}

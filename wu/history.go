@@ -39,12 +39,12 @@ type HistoryConditions struct {
 }
 
 type History struct {
-  Date Date
+	Date         Date
 	Dailysummary []Dailysummary
 }
 
 type Date struct {
-  Pretty  string
+	Pretty string
 }
 
 type Dailysummary struct {
@@ -120,7 +120,7 @@ type Dailysummary struct {
 
 func PrintHistory(obs *HistoryConditions, stationId string) {
 	history := obs.History.Dailysummary[0]
-  fmt.Printf("Weather summary for %s: ", obs.History.Date.Pretty)
+	fmt.Printf("Weather summary for %s: ", obs.History.Date.Pretty)
 	if history.Fog == "1" {
 		fmt.Print(" fog ")
 	}
