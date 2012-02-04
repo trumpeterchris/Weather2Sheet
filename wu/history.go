@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Jan 14 15:59:32 CST 2012
+* Last Modified: Sat Feb 04 10:28:31 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -148,13 +148,14 @@ func PrintHistory(obs *HistoryConditions, stationId string) {
 	if history.Snow == "1" && history.Monthtodatesnowfalli != "" {
 		fmt.Println("   Snow:")
 		if history.Snowfalli == "T" {
-			fmt.Println("     trace\n")
-		} else if history.Snowfalli != "" {
+			fmt.Println("     trace")
+		} else if history.Snowfalli >= "0.00" {
 			fmt.Printf("     %s in (%s mm)\n", history.Snowfalli, history.Snowfallm)
+
+			fmt.Printf("     Snow depth: %s in (%s mm)\n", history.Snowdepthi, history.Snowdepthm)
+			fmt.Printf("     Month to date: %s in (%s mm)\n", history.Monthtodatesnowfalli, history.Monthtodatesnowfallm)
+			fmt.Printf("     Since July 1st: %s in (%s mm)\n", history.Since1julsnowfalli, history.Since1julsnowfallm)
 		}
-		fmt.Printf("     Snow depth: %s in (%s mm)\n", history.Snowdepthi, history.Snowdepthm)
-		fmt.Printf("     Month to date: %s in (%s mm)\n", history.Monthtodatesnowfalli, history.Monthtodatesnowfallm)
-		fmt.Printf("     Since July 1st: %s in (%s mm)\n", history.Since1julsnowfalli, history.Since1julsnowfallm)
 	}
 
 	// Precipitation
