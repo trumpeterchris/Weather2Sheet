@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Jan 14 16:55:51 CST 2012
+* Last Modified: Sat Apr 21 14:37:58 CDT 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -120,7 +120,7 @@ func Options() string {
 	}
 
 	if version {
-		fmt.Println("conditions " + GetVersion())
+		fmt.Println("Wu " + GetVersion())
 		fmt.Println("Copyright  2011 by Stephen Ramsay and")
 		fmt.Println("Anthony Starks. Data courtesy of Weather")
 		fmt.Println("Underground, Inc. is subject to Weather")
