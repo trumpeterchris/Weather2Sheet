@@ -45,11 +45,21 @@ type Config struct {
 }
 
 var (
-  help, version, doall, doalmanac, doalerts, doconditions, dolookup, doforecast, doforecast7, doastro, doyesterday bool
-  dohistory                                                                                                        string
-  doplanner                                                                                                        string
-  date                                                                                                             string
-  conf                                                                                                             Config
+  help         bool
+  version      bool
+  doall        bool
+  doalmanac    bool
+  doalerts     bool
+  doconditions bool
+  dolookup     bool
+  doforecast   bool
+  doforecast7  bool
+  doastro      bool
+  doyesterday  bool
+  dohistory    string
+  doplanner    string
+  date         string
+  conf         Config
 )
 
 const defaultStation = "KLNK"
