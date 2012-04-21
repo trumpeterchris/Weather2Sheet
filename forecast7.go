@@ -32,7 +32,6 @@ import (
 	"fmt"
 )
 
-
 // printForecast prints the forecast for a given station to standard out
 // The dat structure on which it depends is in forecast.go.
 func PrintForecast7(obs *ForecastConditions, stationId string) {

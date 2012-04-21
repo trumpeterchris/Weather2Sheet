@@ -29,14 +29,14 @@
 package main
 
 import (
+	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"regexp"
 	"strings"
-	"encoding/json"
-	"net/http"
-	"flag"
 )
 
 type Config struct {
