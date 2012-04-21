@@ -71,6 +71,17 @@ To compile and install the excutable type:
 
 wu should work on any system that can compile Go programs.
 
+You may find the following aliases useful:
+
+  alias conditions='wu'
+  alias forecast='wu -forecast'
+  alias forecast7='wu -forecast7'
+  alias alerts='wu -alerts'
+  alias astronomy='wu -astro'
+  alias yesterday='wu -yesterday'
+  alias almanac='wu -almanac'
+  alias slookup='wu -lookup'
+
 License(s)
 ---------
 
