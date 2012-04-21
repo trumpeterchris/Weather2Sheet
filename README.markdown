@@ -41,7 +41,7 @@ wu has the following major options:
 
 * _--all_ generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
-All eleven options can be accompanied by the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long").
+All eleven options can be accompanied by the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long".
 
 wu also has two additional switches that provide information about the program:
 
@@ -50,33 +50,24 @@ wu also has two additional switches that provide information about the program:
 
 By itself, the wu command will show the current conditions.
 
-Installing Wu 
+Compiling Installing Wu 
 -----------
 
-Wu is written in the [Go programming language](http://golang.org/).  If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).  But in brief:
-
-	hg clone -u release https://go.googlecode.com/hg/ go
-	cd go/src
-	./all.bash
-	export GOROOT=/path/to/go
-	export GOARCH=amd64
-	export GOOS=linux
-	export PATH=${GOROOT}/bin:$PATH
-
-(substituting 386 for amd64, and darwin|freebsd for linux as appropriate).
-
-Building wu from Source
------------------------
+Wu is written in the [Go programming language](http://golang.org/) (version 1.0).  If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).
 
 To obtain the source code for wu:
 
   git clone git@github.com:sramsay/wu.git
 
-To compile:
+To compile the wu executable, type:
 
-	cd wu/wu
-	make
-  GOPATH=/usr/local/bin make install
+  go build
+
+To compile and install the excutable type:
+
+  go install
+
+(this will install it at the location specified by the GOPATH variable).
 
 wu should work on any system that can compile Go programs.
 
