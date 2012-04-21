@@ -57,15 +57,15 @@ Wu is written in the [Go programming language](http://golang.org/) (version 1.0)
 
 To obtain the source code for wu:
 
-  git clone git@github.com:sramsay/wu.git
+    git clone git@github.com:sramsay/wu.git
 
 To compile the wu executable, type:
 
-  go build
+    go build
 
 To compile and install the excutable type:
 
-  go install
+    go install
 
 (this will install it at the location specified by the GOPATH variable).
 
@@ -73,14 +73,14 @@ wu should work on any system that can compile Go programs.
 
 You may find the following aliases useful:
 
-  alias conditions='wu'
-  alias forecast='wu -forecast'
-  alias forecast7='wu -forecast7'
-  alias alerts='wu -alerts'
-  alias astronomy='wu -astro'
-  alias yesterday='wu -yesterday'
-  alias almanac='wu -almanac'
-  alias slookup='wu -lookup'
+    alias conditions='wu'
+    alias forecast='wu -forecast'
+    alias forecast7='wu -forecast7'
+    alias alerts='wu -alerts'
+    alias astronomy='wu -astro'
+    alias yesterday='wu -yesterday'
+    alias almanac='wu -almanac'
+    alias slookup='wu -lookup'
 
 License(s)
 ---------
