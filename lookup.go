@@ -1,13 +1,13 @@
 /*
-* forecast.go
+* lookup.go
 *
 * This file is part of wu.  It contains functions related to
-* the -forecast switch (3-day forecast).
+* the -lookup switch (station lookup).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Jan 08 16:47:30 CST 2012
+* Last Modified: Sun Jan 08 16:48:26 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -26,36 +26,39 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package forecast
+package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type ForecastConditions struct {
-	Forecast Forecast
+type Lookup struct {
+	Location SLocation
 }
 
-type Forecast struct {
-	Txt_forecast Txt_forecast
+type SLocation struct {
+	Nearby_weather_stations Nearby_weather_stations
 }
 
-type Txt_forecast struct {
-	Date        string
-	Forecastday []Forecastday
+type Nearby_weather_stations struct {
+	Airport Airport
 }
 
-type Forecastday struct {
-	Title   string
-	Fcttext string
+type Airport struct {
+	Station []Station
 }
 
-// printForecast prints the forecast for a given station to standard out
-func PrintForecast(obs *ForecastConditions, stationId string) {
-	t := obs.Forecast.Txt_forecast
-	fmt.Printf("Forecast for %s\n", stationId)
-	fmt.Printf("Issued at %s\n", t.Date)
-	for _, f := range t.Forecastday {
-		fmt.Printf("%s: %s\n", f.Title, f.Fcttext)
+type Station struct {
+	City string
+	Icao string
+}
+
+// printLookup prints nearby stations
+func PrintLookup(obs *Lookup) {
+	station := obs.Location.Nearby_weather_stations.Airport.Station
+	if len(station) == 0 {
+		fmt.Println("No area stations")
+	} else {
+		for _, s := range station {
+			fmt.Printf("%s: %s\n", s.City, s.Icao)
+		}
 	}
 }

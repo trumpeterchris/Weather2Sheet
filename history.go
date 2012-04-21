@@ -26,7 +26,7 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package history
+package main
 
 import (
 	"fmt"
@@ -256,7 +256,7 @@ func boxCompass(degreeString string) string {
 
 	var direction string
 
-	degrees, _ := strconv.Atof64(degreeString)
+	degrees, _ := strconv.ParseFloat(degreeString, 64)
 	bearing := int(math.Floor((degrees / 22.5) + 0.5))
 
 	switch bearing {

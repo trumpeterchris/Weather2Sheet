@@ -26,29 +26,29 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package forecast7
+package main
 
 import (
 	"fmt"
 )
 
-type ForecastConditions struct {
-	Forecast Forecast
-}
-
-type Forecast struct {
-	Txt_forecast Txt_forecast
-}
-
-type Txt_forecast struct {
-	Date        string
-	Forecastday []Forecastday
-}
-
-type Forecastday struct {
-	Title   string
-	Fcttext string
-}
+//type ForecastConditions struct {
+//	Forecast Forecast
+//}
+//
+//type Forecast struct {
+//	Txt_forecast Txt_forecast
+//}
+//
+//type Txt_forecast struct {
+//	Date        string
+//	Forecastday []Forecastday
+//}
+//
+//type Forecastday struct {
+//	Title   string
+//	Fcttext string
+//}
 
 // printForecast prints the forecast for a given station to standard out
 func PrintForecast7(obs *ForecastConditions, stationId string) {

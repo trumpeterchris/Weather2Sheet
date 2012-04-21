@@ -26,7 +26,7 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package almanac
+package main
 
 import (
 	"fmt"

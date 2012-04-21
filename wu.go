@@ -34,18 +34,18 @@ import (
 	"os"
 	"regexp"
 	"strings"
-	"json"
-	"http"
+	"encoding/json"
+	"net/http"
 	"flag"
-	"./forecast7"
-	"./alerts"
-	"./almanac"
-	"./astro"
-	"./conditions"
-	"./forecast"
-	"./history"
-	"./planner"
-	"./lookup"
+//	"wu/forecast7"
+//	"wu/alerts"
+//	"wu/almanac"
+//	"wu/astro"
+//	"wu/conditions"
+//	"wu/forecast"
+//	"wu/history"
+//	"wu/planner"
+//	"wu/lookup"
 )
 
 type Config struct {
@@ -175,7 +175,7 @@ func BuildURL(infoType string, stationId string) string {
 }
 
 // Fetch does URL processing
-func Fetch(url string) ([]byte, os.Error) {
+func Fetch(url string) ([]byte, error) {
 	res, err := http.Get(url)
 	CheckError(err)
 	if res.StatusCode != 200 {
@@ -188,7 +188,7 @@ func Fetch(url string) ([]byte, os.Error) {
 }
 
 // CheckError exits on error with a message
-func CheckError(err os.Error) {
+func CheckError(err error) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Fatal error\n%v\n", err)
 		os.Exit(1)
@@ -207,55 +207,55 @@ func weather(operation string, station string) {
 
 	switch operation {
 	case "almanac":
-		var obs almanac.AlmanacConditions
+		var obs AlmanacConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		almanac.PrintAlmanac(&obs, station)
+		PrintAlmanac(&obs, station)
 	case "astronomy":
-		var obs astro.AstroConditions
+		var obs AstroConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		astro.PrintAstro(&obs, station)
+		PrintAstro(&obs, station)
 	case "alerts":
-		var obs alerts.AlertConditions
+		var obs AlertConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		alerts.PrintAlerts(&obs, station)
+		PrintAlerts(&obs, station)
 	case "conditions":
-		var obs conditions.Conditions
+		var obs Conditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		conditions.PrintConditions(&obs)
+		PrintConditions(&obs)
 	case "forecast":
-		var obs forecast.ForecastConditions
+		var obs ForecastConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		forecast.PrintForecast(&obs, station)
+		PrintForecast(&obs, station)
 	case "forecast7day":
-		var obs forecast7.ForecastConditions
+		var obs ForecastConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		forecast7.PrintForecast7(&obs, station)
+		PrintForecast7(&obs, station)
 	case "yesterday":
-		var obs history.HistoryConditions
+		var obs HistoryConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		history.PrintHistory(&obs, station)
+		PrintHistory(&obs, station)
 	case "history":
-		var obs history.HistoryConditions
+		var obs HistoryConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		history.PrintHistory(&obs, station)
+		PrintHistory(&obs, station)
 	case "planner":
-		var obs planner.PlannerConditions
+		var obs PlannerConditions
 		jsonErr := json.Unmarshal(b, &obs)
 		CheckError(jsonErr)
-		planner.PrintPlanner(&obs, station)
+		PrintPlanner(&obs, station)
 	case "geolookup":
-		var l lookup.Lookup
+		var l Lookup
 		jsonErr := json.Unmarshal(b, &l)
 		CheckError(jsonErr)
-		lookup.PrintLookup(&l)
+		PrintLookup(&l)
 	}
 }
 

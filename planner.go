@@ -26,7 +26,7 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package planner
+package main
 
 import (
 	"fmt"

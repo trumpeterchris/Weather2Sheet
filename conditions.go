@@ -26,7 +26,7 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package conditions
+package main
 
 import (
 	"fmt"

@@ -1,13 +1,13 @@
 /*
-* alerts.go
+* forecast.go
 *
 * This file is part of wu.  It contains functions related to
-* the -alerts switch (active weather alerts).
+* the -forecast switch (3-day forecast).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Jan 08 16:47:56 CST 2012
+* Last Modified: Sun Jan 08 16:47:30 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -26,32 +26,36 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package alerts
+package main
 
 import (
 	"fmt"
 )
 
-type AlertConditions struct {
-	Alerts []Alerts
+type ForecastConditions struct {
+	Forecast Forecast
 }
 
-type Alerts struct {
+type Forecast struct {
+	Txt_forecast Txt_forecast
+}
+
+type Txt_forecast struct {
 	Date        string
-	Expires     string
-	Description string
-	Message     string
+	Forecastday []Forecastday
 }
 
-// printAlerts prints the alerts for a given station to standard out
-func PrintAlerts(obs *AlertConditions, stationId string) {
-	if len(obs.Alerts) == 0 {
-		fmt.Println("No active alerts")
-	} else {
-		fmt.Printf("Station: %s\n", stationId)
-		for _, a := range obs.Alerts {
-			fmt.Printf("### %s ###\n\nIssued at %s\nExpires at %s\n%s\n",
-				a.Description, a.Date, a.Expires, a.Message)
-		}
+type Forecastday struct {
+	Title   string
+	Fcttext string
+}
+
+// printForecast prints the forecast for a given station to standard out
+func PrintForecast(obs *ForecastConditions, stationId string) {
+	t := obs.Forecast.Txt_forecast
+	fmt.Printf("Forecast for %s\n", stationId)
+	fmt.Printf("Issued at %s\n", t.Date)
+	for _, f := range t.Forecastday {
+		fmt.Printf("%s: %s\n", f.Title, f.Fcttext)
 	}
 }

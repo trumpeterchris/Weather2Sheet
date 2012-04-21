@@ -1,13 +1,13 @@
 /*
-* lookup.go
+* alerts.go
 *
 * This file is part of wu.  It contains functions related to
-* the -lookup switch (station lookup).
+* the -alerts switch (active weather alerts).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Jan 08 16:48:26 CST 2012
+* Last Modified: Sun Jan 08 16:47:56 CST 2012
 *
 * Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
 *
@@ -26,39 +26,32 @@
 * <http://www.gnu.org/licenses/>.
  */
 
-package lookup
+package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Lookup struct {
-	Location SLocation
+type AlertConditions struct {
+	Alerts []Alerts
 }
 
-type SLocation struct {
-	Nearby_weather_stations Nearby_weather_stations
+type Alerts struct {
+	Date        string
+	Expires     string
+	Description string
+	Message     string
 }
 
-type Nearby_weather_stations struct {
-	Airport Airport
-}
-
-type Airport struct {
-	Station []Station
-}
-
-type Station struct {
-	City string
-	Icao string
-}
-
-// printLookup prints nearby stations
-func PrintLookup(obs *Lookup) {
-	station := obs.Location.Nearby_weather_stations.Airport.Station
-	if len(station) == 0 {
-		fmt.Println("No area stations")
+// printAlerts prints the alerts for a given station to standard out
+func PrintAlerts(obs *AlertConditions, stationId string) {
+	if len(obs.Alerts) == 0 {
+		fmt.Println("No active alerts")
 	} else {
-		for _, s := range station {
-			fmt.Printf("%s: %s\n", s.City, s.Icao)
+		fmt.Printf("Station: %s\n", stationId)
+		for _, a := range obs.Alerts {
+			fmt.Printf("### %s ###\n\nIssued at %s\nExpires at %s\n%s\n",
+				a.Description, a.Date, a.Expires, a.Message)
 		}
 	}
 }
