@@ -20,26 +20,26 @@ To use _wu,_ you need to obtain an API key from Weather Underground [http://www.
 
 wu has the following major options:
 
-* _--conditions_ reports the current weather conditions.
+* `--conditions` reports the current weather conditions.
 
-* _--forecast_ gives the current (3-day) forecast.
+* `--forecast` gives the current (3-day) forecast.
 
-* _--forecast7_ gives the current (7-day) forecast.
+* `--forecast7` gives the current (7-day) forecast.
 
-* _--alerts_ reports any active weather alerts.
+* `--alerts` reports any active weather alerts.
 
-* _--lookup_ [STATION] allows you to determine the codes for the various weather stations in a particular area.  The format for STATION is the same as that for the -s switch below.
+* `--lookup` [STATION] allows you to determine the codes for the various weather stations in a particular area.  The format for STATION is the same as that for the -s switch below.
 
-* _--astronomy_ reports sunrise, sunset, and lunar phase.
+* `--astronomy` reports sunrise, sunset, and lunar phase.
 
-* _--almanac_ reports average high and low temperatures, as well as record temperatures for the day.
+* `--almanac` reports average high and low temperatures, as well as record temperatures for the day.
 
-* _--yesterday_ gives detailed almanac information for the previous day.
+* `--yesterday` gives detailed almanac information for the previous day.
 
-* _--history=YYYYMMDD_ gives detailed almanac information for a given day.
-* _--planner=MMDDMMDD_ gives averages for travel planning (30-day max).
+* `--history=YYYYMMDD` gives detailed almanac information for a given day.
+* `--planner=MMDDMMDD` gives averages for travel planning (30-day max).
 
-* _--all_ generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
+* `--all` generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
 All eleven options can be accompanied by the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long".
 
