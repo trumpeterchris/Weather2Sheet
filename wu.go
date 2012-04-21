@@ -37,15 +37,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"flag"
-//	"wu/forecast7"
-//	"wu/alerts"
-//	"wu/almanac"
-//	"wu/astro"
-//	"wu/conditions"
-//	"wu/forecast"
-//	"wu/history"
-//	"wu/planner"
-//	"wu/lookup"
 )
 
 type Config struct {
@@ -65,7 +56,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "3.5.2"
+	return "3.6.0"
 }
 
 // GetConf returns the API key and weather station from
