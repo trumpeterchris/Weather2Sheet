@@ -31,34 +31,34 @@ package main
 import "fmt"
 
 type Lookup struct {
-  Location SLocation
+	Location SLocation
 }
 
 type SLocation struct {
-  Nearby_weather_stations Nearby_weather_stations
+	Nearby_weather_stations Nearby_weather_stations
 }
 
 type Nearby_weather_stations struct {
-  Airport Airport
+	Airport Airport
 }
 
 type Airport struct {
-  Station []Station
+	Station []Station
 }
 
 type Station struct {
-  City string
-  Icao string
+	City string
+	Icao string
 }
 
 // printLookup prints nearby stations
 func PrintLookup(obs *Lookup) {
-  station := obs.Location.Nearby_weather_stations.Airport.Station
-  if len(station) == 0 {
-    fmt.Println("No area stations")
-  } else {
-    for _, s := range station {
-      fmt.Printf("%s: %s\n", s.City, s.Icao)
-    }
-  }
+	station := obs.Location.Nearby_weather_stations.Airport.Station
+	if len(station) == 0 {
+		fmt.Println("No area stations")
+	} else {
+		for _, s := range station {
+			fmt.Printf("%s: %s\n", s.City, s.Icao)
+		}
+	}
 }

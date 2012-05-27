@@ -31,32 +31,32 @@ package main
 import "fmt"
 
 type TideConditions struct {
-  Tide  Tide
+	Tide Tide
 }
 
 type Tide struct {
-  Tideinfo    []Tideinfo
-  Tidesummary []Tidesummary
+	Tideinfo    []Tideinfo
+	Tidesummary []Tidesummary
 }
 
 type Tideinfo struct {
-  Tidesite string
+	Tidesite string
 }
 
 type Tidesummary struct {
-  Date TideDate
-  Data  Data
+	Date TideDate
+	Data Data
 }
 
 type TideDate struct {
-  Pretty string
+	Pretty string
 }
 
 type Data struct {
-  Height    string
-  Type  string
+	Height string
+	Type   string
 }
 
 func PrintTide(obs *TideConditions, stationID string) {
-  fmt.Printf("Tidal data for %s\n", obs.Tide.Tideinfo[0].Tidesite)
+	fmt.Printf("Tidal data for %s\n", obs.Tide.Tideinfo[0].Tidesite)
 }
