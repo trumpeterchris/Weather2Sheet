@@ -9,7 +9,7 @@
 *
 * Last Modified: Sat Apr 21 14:37:58 CDT 2012
 *
-* Copyright © 2010-2011 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -131,7 +131,7 @@ func Options() string {
 
   if version {
     fmt.Println("Wu " + GetVersion())
-    fmt.Println("Copyright  2011 by Stephen Ramsay and")
+    fmt.Println("Copyright 2010-2012 by Stephen Ramsay and")
     fmt.Println("Anthony Starks. Data courtesy of Weather")
     fmt.Println("Underground, Inc. is subject to Weather")
     fmt.Println("Underground Data Feed Terms of Service.")
