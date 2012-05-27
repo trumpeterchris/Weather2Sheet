@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Apr 21 14:37:58 CDT 2012
+* Last Modified: Sun May 27 17:37:28 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -56,6 +56,7 @@ var (
   doforecast7  bool
   doastro      bool
   doyesterday  bool
+  dotide       bool
   dohistory    string
   doplanner    string
   date         string
@@ -107,6 +108,7 @@ func Options() string {
   flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
   flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
   flag.StringVar(&doplanner, "planner", "", "Reports historical data for a particular date range (30-day max) --planner=\"MMDDMMDD\"")
+  flag.BoolVar(&dotide, "tide", false, "Reports tidal data (if available")
   flag.BoolVar(&help, "h", false, "Print this message")
   flag.BoolVar(&version, "V", false, "Print the version number")
   flag.BoolVar(&doall, "all", false, "Show all weather data")
@@ -252,6 +254,11 @@ func weather(operation string, station string) {
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
     PrintPlanner(&obs, station)
+  case "tide":
+    var obs TideConditions
+    jsonErr := json.Unmarshal(b, &obs)
+    CheckError(jsonErr)
+    PrintTide(&obs, station)
   case "geolookup":
     var l Lookup
     jsonErr := json.Unmarshal(b, &l)
@@ -272,6 +279,7 @@ func main() {
     weather("planner", stationId)
     weather("yesterday", stationId)
     weather("astronomy", stationId)
+    weather("tide", stationId)
     weather("geolookup", stationId)
     os.Exit(0)
   }
@@ -301,6 +309,9 @@ func main() {
   }
   if doplanner != "" {
     weather("planner", stationId)
+  }
+  if dotide {
+    weather("tide", stationId)
   }
   if dolookup {
     weather("geolookup", stationId)
