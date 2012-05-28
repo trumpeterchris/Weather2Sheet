@@ -42,7 +42,7 @@ wu has the following major options:
 
 * `--all` generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
-All eleven options can be accompanied by the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long".
+All twelve options can be accompanied by the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long".
 
 wu also has two additional switches that provide information about the program:
 
