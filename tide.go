@@ -29,60 +29,60 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"strconv"
-	"time"
+  "fmt"
+  "os"
+  "strconv"
+  "time"
 )
 
 type TideConditions struct {
-	Tide Tide
+  Tide Tide
 }
 
 type Tide struct {
-	Tideinfo    []Tideinfo
-	Tidesummary []Tidesummary
+  Tideinfo    []Tideinfo
+  Tidesummary []Tidesummary
 }
 
 type Tideinfo struct {
-	Tidesite string
+  Tidesite string
 }
 
 type Tidesummary struct {
-	Date Date // Defined in wu.go
-	Data Data
+  Date Date // Defined in wu.go
+  Data Data
 }
 
 type Data struct {
-	Height string
-	Type   string
+  Height string
+  Type   string
 }
 
 // printTide prints the tidal data for given station to standard out
 func PrintTide(obs *TideConditions, stationID string) {
-	tide := obs.Tide
-	info := tide.Tideinfo
-	summary := tide.Tidesummary
+  tide := obs.Tide
+  info := tide.Tideinfo
+  summary := tide.Tidesummary
 
-	if len(summary) == 0 {
-		fmt.Println("No tidal data available.")
-		os.Exit(0)
-	}
+  if len(summary) == 0 {
+    fmt.Println("No tidal data available.")
+    os.Exit(0)
+  }
 
-	fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
+  fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
 
-	day := time.Now().Day()
-	month := time.Now().Month()
-	year := time.Now().Year()
+  day := time.Now().Day()
+  month := time.Now().Month()
+  year := time.Now().Year()
 
-	for d := day; d < day+4; d++ {
-		fmt.Printf("%d/%d/%d:\n", month, d, year)
-		for _, s := range summary {
-			if s.Date.Mday == strconv.Itoa(d) {
-				if s.Data.Type == "Low Tide" || s.Data.Type == "High Tide" {
-					fmt.Printf("  %s: %s:%s\n", s.Data.Type, s.Date.Hour, s.Date.Min)
-				}
-			}
-		}
-	}
+  for d := day; d < day+4; d++ {
+    fmt.Printf("%d/%d/%d:\n", month, d, year)
+    for _, s := range summary {
+      if s.Date.Mday == strconv.Itoa(d) {
+        if s.Data.Type == "Low Tide" || s.Data.Type == "High Tide" {
+          fmt.Printf("  %s: %s:%s\n", s.Data.Type, s.Date.Hour, s.Date.Min)
+        }
+      }
+    }
+  }
 }
