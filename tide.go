@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Mon May 28 12:06:27 CDT 2012
+* Last Modified: Mon May 28 12:17:30 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -32,6 +32,7 @@ import (
 	"fmt"
 	"strconv"
 	"time"
+  "os"
 )
 
 type TideConditions struct {
@@ -62,6 +63,12 @@ func PrintTide(obs *TideConditions, stationID string) {
 	tide := obs.Tide
 	info := tide.Tideinfo
 	summary := tide.Tidesummary
+
+  if len(summary) == 0 {
+    fmt.Println("No tidal data available.")
+    os.Exit(0)
+  }
+
 	fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
 
 	day := time.Now().Day()
