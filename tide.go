@@ -30,9 +30,9 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"time"
-  "os"
 )
 
 type TideConditions struct {
@@ -64,10 +64,10 @@ func PrintTide(obs *TideConditions, stationID string) {
 	info := tide.Tideinfo
 	summary := tide.Tidesummary
 
-  if len(summary) == 0 {
-    fmt.Println("No tidal data available.")
-    os.Exit(0)
-  }
+	if len(summary) == 0 {
+		fmt.Println("No tidal data available.")
+		os.Exit(0)
+	}
 
 	fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
 
