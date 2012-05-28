@@ -63,11 +63,21 @@ var (
 	conf         Config
 )
 
+// Struct common to several data streams
+type Date struct {
+	Pretty string
+	Hour   string
+	Min    string
+	Mon    string
+	Mday   string
+	Year   string
+}
+
 const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-	return "3.6.0"
+	return "3.7.0"
 }
 
 // GetConf returns the API key and weather station from

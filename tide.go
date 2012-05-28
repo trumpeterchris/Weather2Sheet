@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun May 27 16:39:29 CDT 2012
+* Last Modified: Mon May 28 12:06:27 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -28,7 +28,11 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+	"time"
+)
 
 type TideConditions struct {
 	Tide Tide
@@ -44,12 +48,8 @@ type Tideinfo struct {
 }
 
 type Tidesummary struct {
-	Date TideDate
+	Date Date // Defined in wu.go
 	Data Data
-}
-
-type TideDate struct {
-	Pretty string
 }
 
 type Data struct {
@@ -57,6 +57,25 @@ type Data struct {
 	Type   string
 }
 
+// printTide prints the tidal data for given station to standard out
 func PrintTide(obs *TideConditions, stationID string) {
-	fmt.Printf("Tidal data for %s\n", obs.Tide.Tideinfo[0].Tidesite)
+	tide := obs.Tide
+	info := tide.Tideinfo
+	summary := tide.Tidesummary
+	fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
+
+	day := time.Now().Day()
+	month := time.Now().Month()
+	year := time.Now().Year()
+
+	for d := day; d < day+4; d++ {
+		fmt.Printf("%d/%d/%d:\n", month, d, year)
+		for _, s := range summary {
+			if s.Date.Mday == strconv.Itoa(d) {
+				if s.Data.Type == "Low Tide" || s.Data.Type == "High Tide" {
+					fmt.Printf("  %s: %s:%s\n", s.Data.Type, s.Date.Hour, s.Date.Min)
+				}
+			}
+		}
+	}
 }

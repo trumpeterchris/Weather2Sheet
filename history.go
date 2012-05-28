@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Apr 21 14:39:13 CDT 2012
+* Last Modified: Mon May 28 10:19:26 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -39,12 +39,8 @@ type HistoryConditions struct {
 }
 
 type History struct {
-	Date         Date
+	Date         Date // Defined in wu.go
 	Dailysummary []Dailysummary
-}
-
-type Date struct {
-	Pretty string
 }
 
 type Dailysummary struct {
