@@ -81,6 +81,7 @@ You may find the following aliases useful:
     alias astronomy='wu -astro'
     alias yesterday='wu -yesterday'
     alias almanac='wu -almanac'
+    alias tides='wu -tide'
     alias slookup='wu -lookup'
 
 License(s)
