@@ -122,7 +122,7 @@ type Dailysummary struct {
 func PrintHistory(obs *HistoryConditions, stationId string) {
 
   if len(obs.History.Observations) == 0 {
-    fmt.Println("No data available for specified date.")
+    fmt.Println("No data available for specified date")
     os.Exit(0)
   }
 
