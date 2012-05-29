@@ -53,7 +53,7 @@ var (
   doconditions bool
   dolookup     bool
   doforecast   bool
-  doforecast7  bool
+  doforecast10  bool
   doastro      bool
   doyesterday  bool
   dotide       bool
@@ -113,7 +113,7 @@ func Options() string {
   flag.BoolVar(&dolookup, "lookup", false, "Lookup the codes for the weather stations in a particular area")
   flag.BoolVar(&doastro, "astro", false, "Reports sunrise, sunset, and lunar phase")
   flag.BoolVar(&doforecast, "forecast", false, "Reports the current (3-day) forecast")
-  flag.BoolVar(&doforecast7, "forecast7", false, "Reports the current (7-day) forecast")
+  flag.BoolVar(&doforecast10, "forecast10", false, "Reports the current (7-day) forecast")
   flag.BoolVar(&doalmanac, "almanac", false, "Reports average high, low and record temperatures")
   flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
   flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
@@ -244,11 +244,11 @@ func weather(operation string, station string) {
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
     PrintForecast(&obs, station)
-  case "forecast7day":
+  case "forecast10day":
     var obs ForecastConditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintForecast7(&obs, station)
+    PrintForecast10(&obs, station)
   case "yesterday":
     var obs HistoryConditions
     jsonErr := json.Unmarshal(b, &obs)
@@ -282,7 +282,7 @@ func main() {
   if doall {
     weather("conditions", stationId)
     weather("forecast", stationId)
-    weather("forecast7day", stationId)
+    weather("forecast10day", stationId)
     weather("alerts", stationId)
     weather("almanac", stationId)
     weather("history", stationId)
@@ -308,8 +308,8 @@ func main() {
   if doforecast {
     weather("forecast", stationId)
   }
-  if doforecast7 {
-    weather("forecast7day", stationId)
+  if doforecast10 {
+    weather("forecast10day", stationId)
   }
   if dohistory != "" {
     weather("history", stationId)

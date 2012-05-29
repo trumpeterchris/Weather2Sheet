@@ -1,13 +1,13 @@
 /*
-* forecast7.go
+* forecast10.go
 *
 * This file is part of wu.  It contains functions related to
-* the -forecast7 switch (7-day forecast).
+* the -forecast10 switch (10-day forecast).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Jan 14 09:56:48 CST 2012
+* Last Modified: Tue May 29 12:55:56 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -34,7 +34,7 @@ import (
 
 // printForecast prints the forecast for a given station to standard out
 // The dat structure on which it depends is in forecast.go.
-func PrintForecast7(obs *ForecastConditions, stationId string) {
+func PrintForecast10(obs *ForecastConditions, stationId string) {
   t := obs.Forecast.Txt_forecast
   fmt.Printf("Forecast for %s\n", stationId)
   fmt.Printf("Issued at %s\n", t.Date)
