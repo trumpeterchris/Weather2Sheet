@@ -47,7 +47,7 @@ All twelve options can be accompanied by the -s switch, which can be used to ove
 wu also has two additional switches that provide information about the program:
 
 * `--help`
-* `-version`
+* `--version`
 
 By itself, the wu command will show the current conditions.
 
