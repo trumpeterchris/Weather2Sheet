@@ -30,8 +30,8 @@ package main
 
 import (
   "fmt"
-  "os"
   "math"
+  "os"
   "strconv"
 )
 
@@ -41,7 +41,7 @@ type HistoryConditions struct {
 
 type History struct {
   Date         Date // Defined in wu.go
-  Observations  []Observations
+  Observations []Observations
   Dailysummary []Dailysummary
 }
 

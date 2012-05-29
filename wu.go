@@ -53,7 +53,7 @@ var (
   doconditions bool
   dolookup     bool
   doforecast   bool
-  doforecast10  bool
+  doforecast10 bool
   doastro      bool
   doyesterday  bool
   dotide       bool
