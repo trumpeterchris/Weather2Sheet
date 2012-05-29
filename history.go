@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Mon May 28 10:19:26 CDT 2012
+* Last Modified: Tue May 29 16:29:30 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -30,6 +30,7 @@ package main
 
 import (
   "fmt"
+  "os"
   "math"
   "strconv"
 )
@@ -40,7 +41,11 @@ type HistoryConditions struct {
 
 type History struct {
   Date         Date // Defined in wu.go
+  Observations  []Observations
   Dailysummary []Dailysummary
+}
+
+type Observations struct {
 }
 
 type Dailysummary struct {
@@ -115,6 +120,12 @@ type Dailysummary struct {
 }
 
 func PrintHistory(obs *HistoryConditions, stationId string) {
+
+  if len(obs.History.Observations) == 0 {
+    fmt.Println("No data available for specified date.")
+    os.Exit(0)
+  }
+
   history := obs.History.Dailysummary[0]
   fmt.Printf("Weather summary for %s: ", obs.History.Date.Pretty)
   if history.Fog == "1" {
