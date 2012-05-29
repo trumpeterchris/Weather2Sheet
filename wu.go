@@ -77,7 +77,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-  return "3.7.0"
+  return "3.8.1"
 }
 
 // GetConf returns the API key and weather station from
@@ -184,7 +184,7 @@ func BuildURL(infoType string, stationId string) string {
     URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
   }
 
-  fmt.Println(URL) //DEBUG
+  // fmt.Println(URL) //DEBUG
 
   return URL
 }
