@@ -2,7 +2,7 @@
 Wu
 ==========
 
-Version 3.7.0.
+Version 3.8.0.
 
 _wu_ is a small, fast command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
@@ -24,7 +24,7 @@ wu has the following major options:
 
 * `--forecast` gives the current (3-day) forecast.
 
-* `--forecast7` gives the current (7-day) forecast.
+* `--forecast10` gives the current (10-day) forecast.
 
 * `--alerts` reports any active weather alerts.
 
@@ -76,7 +76,7 @@ You may find the following aliases useful:
 
     alias conditions='wu'
     alias forecast='wu -forecast'
-    alias forecast7='wu -forecast7'
+    alias forecast10='wu -forecast10'
     alias alerts='wu -alerts'
     alias astronomy='wu -astro'
     alias yesterday='wu -yesterday'
