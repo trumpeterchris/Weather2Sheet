@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun May 27 17:37:28 CDT 2012
+* Last Modified: Tue May 29 17:39:12 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -77,7 +77,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-  return "3.8.1"
+  return "3.8.2"
 }
 
 // GetConf returns the API key and weather station from
@@ -119,8 +119,8 @@ func Options() string {
   flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
   flag.StringVar(&doplanner, "planner", "", "Reports historical data for a particular date range (30-day max) --planner=\"MMDDMMDD\"")
   flag.BoolVar(&dotide, "tide", false, "Reports tidal data (if available")
-  flag.BoolVar(&help, "h", false, "Print this message")
-  flag.BoolVar(&version, "V", false, "Print the version number")
+  flag.BoolVar(&help, "help", false, "Print this message")
+  flag.BoolVar(&version, "version", false, "Print the version number")
   flag.BoolVar(&doall, "all", false, "Show all weather data")
   flag.StringVar(&station, "s", sconf,
     "Weather station: \"city, state-abbreviation\", (US or Canadian) zipcode, 3- or 4-letter airport code, or LAT,LONG")

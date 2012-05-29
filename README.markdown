@@ -2,7 +2,7 @@
 Wu
 ==========
 
-Version 3.8.1.
+Version 3.8.2
 
 _wu_ is a small, fast command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
@@ -46,13 +46,13 @@ All twelve options can be accompanied by the -s switch, which can be used to ove
 
 wu also has two additional switches that provide information about the program:
 
-* -h help
-* -V version
+* `--help`
+* `-version`
 
 By itself, the wu command will show the current conditions.
 
-Compiling Installing Wu 
------------
+Compiling and Installing Wu 
+---------------------------
 
 Wu is written in the [Go programming language](http://golang.org/) (version 1.0).  If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).
 
