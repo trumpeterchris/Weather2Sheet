@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Tue May 29 22:44:52 CDT 2012
+* Last Modified: Wed May 30 10:14:20 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -32,6 +32,7 @@ import (
   "fmt"
   "os"
   "strconv"
+  "time"
 )
 
 type TideConditions struct {
@@ -57,7 +58,7 @@ type Data struct {
   Type   string
 }
 
-// printTide prints the tidal data for given station to standard out
+// printTides prints the tidal data for given station to standard out
 func PrintTides(obs *TideConditions, stationID string) {
   tide := obs.Tide
   info := tide.Tideinfo
@@ -70,13 +71,22 @@ func PrintTides(obs *TideConditions, stationID string) {
 
   fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
 
+  var date_string string
+  var prev_date string
+
   for _, s := range summary {
+    month, _ := strconv.Atoi(s.Date.Mon)
     hour, _ := strconv.Atoi(s.Date.Hour)
+    prev_date = date_string
+    date_string = time.Month(month).String() + " " + s.Date.Mday + ", " + s.Date.Year + ":"
+    if date_string != prev_date {
+      fmt.Println(date_string)
+    }
     if hour < 13 {
-      fmt.Printf("%s/%s/%s: %s at %d:%s AM\n", s.Date.Mon, s.Date.Mday, s.Date.Year, s.Data.Type, hour, s.Date.Min)
+      fmt.Printf("     %s at %d:%s AM\n", s.Data.Type, hour, s.Date.Min)
     } else {
       hour = hour - 12
-      fmt.Printf("%s/%s/%s: %s at %d:%s PM\n", s.Date.Mon, s.Date.Mday, s.Date.Year, s.Data.Type, hour, s.Date.Min)
+      fmt.Printf("     %s at %d:%s PM\n", s.Data.Type, hour, s.Date.Min)
     }
   }
 }
