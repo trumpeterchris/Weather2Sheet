@@ -28,7 +28,7 @@ wu has the following major options:
 
 * `--alerts` reports any active weather alerts.
 
-* `--lookup` [STATION] allows you to determine the codes for the various weather stations in a particular area.  The format for STATION is the same as that for the -s switch below.
+* `--lookup [STATION]` allows you to determine the codes for the various weather stations in a particular area.  The format for STATION is the same as that for the -s switch below.
 
 * `--astronomy` reports sunrise, sunset, and lunar phase.
 
@@ -44,12 +44,12 @@ wu has the following major options:
 	
 All twelve options can be accompanied by the -s switch, which can be used to override the default location in .condrc.  The argument passed to -s can be a "city, state-abbreviation/country", a (U.S. or Canadian) zip code, a 3- or 4-letter airport code, or "lat,long".
 
-wu also has two additional switches that provide information about the program:
+_wu_ also has two additional switches that provide information about the program:
 
 * `--help`
 * `--version`
 
-By itself, the wu command will show the current conditions.
+By itself, the _wu_ command will show the current conditions.
 
 Compiling and Installing Wu 
 ---------------------------
@@ -70,7 +70,7 @@ To compile and install the excutable type:
 
 (this will install it at the location specified by the GOPATH variable).
 
-wu should work on any system that can compile Go programs.
+Wu should work on any system that can compile Go programs.
 
 You may find the following aliases useful:
 
