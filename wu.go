@@ -56,7 +56,7 @@ var (
   doforecast10 bool
   doastro      bool
   doyesterday  bool
-  dotide       bool
+  dotides      bool
   dohistory    string
   doplanner    string
   date         string
@@ -77,7 +77,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-  return "3.8.2"
+  return "3.8.3"
 }
 
 // GetConf returns the API key and weather station from
@@ -118,7 +118,7 @@ func Options() string {
   flag.BoolVar(&doyesterday, "yesterday", false, "Reports yesterday's weather data")
   flag.StringVar(&dohistory, "history", "", "Reports historical data for a particular day --history=\"YYYYMMDD\"")
   flag.StringVar(&doplanner, "planner", "", "Reports historical data for a particular date range (30-day max) --planner=\"MMDDMMDD\"")
-  flag.BoolVar(&dotide, "tide", false, "Reports tidal data (if available")
+  flag.BoolVar(&dotides, "tides", false, "Reports tidal data (if available")
   flag.BoolVar(&help, "help", false, "Print this message")
   flag.BoolVar(&version, "version", false, "Print the version number")
   flag.BoolVar(&doall, "all", false, "Show all weather data")
@@ -270,7 +270,7 @@ func weather(operation string, station string) {
     var obs TideConditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintTide(&obs, station)
+    PrintTides(&obs, station)
   case "geolookup":
     var l Lookup
     jsonErr := json.Unmarshal(b, &l)
@@ -322,7 +322,7 @@ func main() {
   if doplanner != "" {
     weather("planner", stationId)
   }
-  if dotide {
+  if dotides {
     weather("tide", stationId)
   }
   if dolookup {

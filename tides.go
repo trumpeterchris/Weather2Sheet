@@ -59,7 +59,7 @@ type Data struct {
 }
 
 // printTide prints the tidal data for given station to standard out
-func PrintTide(obs *TideConditions, stationID string) {
+func PrintTides(obs *TideConditions, stationID string) {
   tide := obs.Tide
   info := tide.Tideinfo
   summary := tide.Tidesummary
@@ -75,14 +75,25 @@ func PrintTide(obs *TideConditions, stationID string) {
   month := time.Now().Month()
   year := time.Now().Year()
 
-  for d := day; d < day+4; d++ {
-    fmt.Printf("%d/%d/%d:\n", month, d, year)
+  for c := 1; c <= 4; c++ {
+    fmt.Printf("%d/%d/%d:\n", month, day, year)
     for _, s := range summary {
-      if s.Date.Mday == strconv.Itoa(d) {
+      if s.Date.Mday == strconv.Itoa(day) {
         if s.Data.Type == "Low Tide" || s.Data.Type == "High Tide" {
           fmt.Printf("  %s: %s:%s\n", s.Data.Type, s.Date.Hour, s.Date.Min)
         }
       }
+    }
+    // Increment dates
+    if month == 12 && day < time.Now().AddDate(0, 0, c).Day() { // year change
+      day = time.Now().AddDate(0, 0, c).Day()
+      month = time.Now().AddDate(0, 1, 0).Month()
+      year = time.Now().AddDate(1, 0, 0).Year()
+    } else if day < time.Now().AddDate(0, 0, c).Day() { // month change
+      day = time.Now().AddDate(0, 0, c).Day()
+      month = time.Now().AddDate(0, 1, 0).Month()
+    } else { // day change
+      day = time.Now().AddDate(0, 0, c).Day()
     }
   }
 }
