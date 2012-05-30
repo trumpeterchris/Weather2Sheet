@@ -2,7 +2,7 @@
 Wu
 ==========
 
-Version 3.8.3
+Version 3.9
 
 _wu_ is a small, fast command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
@@ -38,7 +38,7 @@ wu has the following major options:
 
 * `--history=YYYYMMDD` gives detailed almanac information for a given day.
 * `--planner=MMDDMMDD` gives averages for travel planning (30-day max).
-* `--tide` reports tidal data (when available).
+* `--tides` reports tidal data (when available).
 
 * `--all` generate all reports (useful for creating custom reports and for mollifying the truly weather-crazed).
 	
@@ -81,7 +81,7 @@ You may find the following aliases useful:
     alias astronomy='wu -astro'
     alias yesterday='wu -yesterday'
     alias almanac='wu -almanac'
-    alias tides='wu -tide'
+    alias tides='wu -tides'
     alias slookup='wu -lookup'
 
 License(s)
