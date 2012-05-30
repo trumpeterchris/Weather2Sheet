@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Tue May 29 17:39:12 CDT 2012
+* Last Modified: Tue May 29 23:01:16 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -77,7 +77,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-  return "3.9"
+  return "3.9.1"
 }
 
 // GetConf returns the API key and weather station from

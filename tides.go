@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Mon May 28 12:17:30 CDT 2012
+* Last Modified: Tue May 29 22:44:52 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -32,7 +32,6 @@ import (
   "fmt"
   "os"
   "strconv"
-  "time"
 )
 
 type TideConditions struct {
@@ -71,29 +70,13 @@ func PrintTides(obs *TideConditions, stationID string) {
 
   fmt.Printf("Tidal data for %s\n", info[0].Tidesite)
 
-  day := time.Now().Day()
-  month := time.Now().Month()
-  year := time.Now().Year()
-
-  for c := 1; c <= 4; c++ {
-    fmt.Printf("%d/%d/%d:\n", month, day, year)
-    for _, s := range summary {
-      if s.Date.Mday == strconv.Itoa(day) {
-        if s.Data.Type == "Low Tide" || s.Data.Type == "High Tide" {
-          fmt.Printf("  %s: %s:%s\n", s.Data.Type, s.Date.Hour, s.Date.Min)
-        }
-      }
-    }
-    // Increment dates
-    if month == 12 && day < time.Now().AddDate(0, 0, c).Day() { // year change
-      day = time.Now().AddDate(0, 0, c).Day()
-      month = time.Now().AddDate(0, 1, 0).Month()
-      year = time.Now().AddDate(1, 0, 0).Year()
-    } else if day < time.Now().AddDate(0, 0, c).Day() { // month change
-      day = time.Now().AddDate(0, 0, c).Day()
-      month = time.Now().AddDate(0, 1, 0).Month()
-    } else { // day change
-      day = time.Now().AddDate(0, 0, c).Day()
+  for _, s := range summary {
+    hour, _ := strconv.Atoi(s.Date.Hour)
+    if hour < 13 {
+      fmt.Printf("%s/%s/%s: %s at %d:%s AM\n", s.Date.Mon, s.Date.Mday, s.Date.Year, s.Data.Type, hour, s.Date.Min)
+    } else {
+      hour = hour - 12
+      fmt.Printf("%s/%s/%s: %s at %d:%s PM\n", s.Date.Mon, s.Date.Mday, s.Date.Year, s.Data.Type, hour, s.Date.Min)
     }
   }
 }
