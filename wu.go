@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Tue May 29 23:01:16 CDT 2012
+* Last Modified: Sat Jun 09 09:41:04 CDT 2012
 *
 * Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
 *
@@ -77,17 +77,14 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-  return "3.9.2"
+  return "3.9.3"
 }
 
 // GetConf returns the API key and weather station from
 // the configuration file at $HOME/.condrc
 func ReadConf() {
 
-  var b []byte
-  b, err := ioutil.ReadFile(os.Getenv("HOME") + "/.condrc")
-
-  if err == nil {
+  if b, err := ioutil.ReadFile(os.Getenv("HOME") + "/.condrc"); err == nil {
     jsonErr := json.Unmarshal(b, &conf)
     CheckError(jsonErr)
   } else {
@@ -156,9 +153,8 @@ func Options() string {
   // Trap for city-state combinations (e.g. "San Francisco, CA") and
   // make them URL-friendly (e.g. "CA/SanFranciso")
   cityStatePattern := regexp.MustCompile("([A-Za-z ]+), ([A-Za-z ]+)")
-  cityState := cityStatePattern.FindStringSubmatch(station)
 
-  if cityState != nil {
+  if cityState := cityStatePattern.FindStringSubmatch(station); cityState != nil {
     station = cityState[2] + "/" + cityState[1]
     station = strings.Replace(station, " ", "_", -1)
   }
@@ -177,7 +173,9 @@ func BuildURL(infoType string, stationId string) string {
   } else if doplanner != "" {
     date = doplanner
   }
-  URL := ""
+
+  var URL string
+
   if date != "" {
     URL = URLstem + conf.Key + "/" + infoType + "_" + date + query + stationId + format
   } else {

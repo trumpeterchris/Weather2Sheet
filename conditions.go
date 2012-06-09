@@ -85,8 +85,7 @@ func PrintConditions(obs *Conditions) {
     fmt.Println("   Windchill: ", current.Windchill_string)
   }
   fmt.Printf("   Visibility: %s miles\n", current.Visibility_mi)
-  m, _ := regexp.MatchString("0.0", current.Precip_today_string)
-  if !m {
+  if m, _ := regexp.MatchString("0.0", current.Precip_today_string); !m {
     fmt.Println("   Precipitation today: ", current.Precip_today_string)
   }
 }
