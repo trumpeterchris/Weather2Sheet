@@ -2,7 +2,7 @@
 * tide.go
 *
 * This file is part of wu.  It contains functions related to
-* the -tide switch (high and low tide data).
+* the -tides switch (high and low tide data).
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
