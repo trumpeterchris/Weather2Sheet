@@ -58,7 +58,7 @@ Wu is written in the [Go programming language](http://golang.org/) (version 1.0)
 
 To obtain the source code for wu:
 
-    git clone git@github.com:sramsay/wu.git
+    git clone git://github.com/sramsay/wu.git
 
 To compile the wu executable, type:
 
