@@ -9,7 +9,7 @@
 *
 * Last Modified: Wed May 30 10:14:20 CDT 2012
 *
-* Copyright © 2010-2012 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2013 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
