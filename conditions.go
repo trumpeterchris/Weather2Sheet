@@ -31,7 +31,10 @@ package main
 import (
   "fmt"
   "regexp"
+	"strconv"
+	"strings"
 )
+
 
 type Conditions struct {
   Current_observation Current
@@ -77,7 +80,26 @@ func PrintConditions(obs *Conditions) {
   case "0":
     fmt.Println(pstring, "holding steady")
   }
-  fmt.Println("   Dewpoint: ", current.Dewpoint_string)
+	fmt.Print("   Dewpoint: ", current.Dewpoint_string)
+	dp_components := strings.Split(current.Dewpoint_string, " ")
+	dp, _ := strconv.Atoi(dp_components[0])
+	if dp < 50 {
+		fmt.Println(" (dry)")
+	} else if dp >= 50 && dp <= 54 {
+			fmt.Println(" (very comfortable)")
+	} else if dp >= 55 && dp <= 59 {
+			fmt.Println(" (comfortable)")
+	} else if dp >= 60 && dp <= 64 {
+			fmt.Println(" (okay for most)")
+	} else if dp >= 65 && dp <= 69 {
+			fmt.Println(" (somewhat unconfortable)")
+	} else if dp >= 70 && dp <= 74 {
+			fmt.Println(" (very humid)")
+	} else if dp >= 75 && dp <= 80 {
+			fmt.Println(" (oppressive)")
+	} else if dp >= 80 {
+			fmt.Println(" (dangerously high)")
+		}
   if current.Heat_index_string != "NA" {
     fmt.Println("   Heat Index: ", current.Heat_index_string)
   }
