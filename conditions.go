@@ -73,7 +73,6 @@ func PrintConditions(obs *Conditions) {
   }
   fmt.Println("   Sky Conditions:", current.Weather)
   fmt.Println("   Wind:", current.Wind_string)
-  fmt.Println("   Relative humidity:", current.Relative_humidity)
   pstring := fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
   switch current.Pressure_trend {
   case "+":
@@ -83,6 +82,7 @@ func PrintConditions(obs *Conditions) {
   case "0":
     fmt.Println(pstring, "holding steady")
   }
+  fmt.Println("   Relative humidity:", current.Relative_humidity)
 	fmt.Print("   Dewpoint: ", current.Dewpoint_string)
 	dp_components := strings.Split(current.Dewpoint_string, " ")
 	dp, _ := strconv.Atoi(dp_components[0])
