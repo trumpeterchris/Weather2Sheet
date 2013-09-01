@@ -2,7 +2,7 @@
 Wu
 ==========
 
-Version 3.9.4
+Version 3.9.5
 
 _wu_ is a small, fast command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
