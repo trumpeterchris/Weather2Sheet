@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Apr 21 14:38:20 CDT 2012
+* Last Modified: Sun Sep 01 16:36:33 CDT 2013
 *
 * Copyright © 2010-2013 by Stephen Ramsay and Anthony Starks.
 *
@@ -68,6 +68,9 @@ func PrintConditions(obs *Conditions) {
   fmt.Printf("Current conditions at %s (%s)\n%s\n",
     current.Observation_location.Full, current.Station_id, current.Observation_time)
   fmt.Println("   Temperature:", current.Temperature_string)
+  if current.Heat_index_string != "NA" {
+    fmt.Println("   Heat Index: ", current.Heat_index_string)
+  }
   fmt.Println("   Sky Conditions:", current.Weather)
   fmt.Println("   Wind:", current.Wind_string)
   fmt.Println("   Relative humidity:", current.Relative_humidity)
@@ -100,9 +103,6 @@ func PrintConditions(obs *Conditions) {
 	} else if dp >= 80 {
 			fmt.Println(" (dangerously high)")
 		}
-  if current.Heat_index_string != "NA" {
-    fmt.Println("   Heat Index: ", current.Heat_index_string)
-  }
   if current.Windchill_string != "NA" {
     fmt.Println("   Windchill: ", current.Windchill_string)
   }
