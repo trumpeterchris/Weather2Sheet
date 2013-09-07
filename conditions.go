@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Sep 01 16:36:33 CDT 2013
+* Last Modified: Sat Sep 07 16:31:29 CDT 2013
 *
 * Copyright © 2010-2013 by Stephen Ramsay and Anthony Starks.
 *
@@ -95,7 +95,7 @@ func PrintConditions(obs *Conditions) {
 	} else if dp >= 60 && dp <= 64 {
 			fmt.Println(" (okay for most)")
 	} else if dp >= 65 && dp <= 69 {
-			fmt.Println(" (somewhat unconfortable)")
+			fmt.Println(" (somewhat uncomfortable)")
 	} else if dp >= 70 && dp <= 74 {
 			fmt.Println(" (very humid)")
 	} else if dp >= 75 && dp <= 80 {
