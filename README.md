@@ -54,7 +54,7 @@ By itself, the _wu_ command will show the current conditions.
 Compiling and Installing Wu 
 ---------------------------
 
-Wu is written in the [Go programming language](http://golang.org/) (version 1.0).  If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).
+Wu is written in the [Go programming language](http://golang.org/) (version 1.0 or later).  If you don't have a Go compiler, you'll need to install one.  Detailed instructions are [here](http://golang.org/doc/install.html).
 
 To obtain the source code for wu:
 
