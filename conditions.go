@@ -7,9 +7,9 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sat Sep 07 16:31:29 CDT 2013
+* Last Modified: Wed Dec 18 16:11:11 CST 2013
 *
-* Copyright © 2010-2013 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2014 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by

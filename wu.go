@@ -140,7 +140,7 @@ func Options() string {
 
   if version {
     fmt.Println("Wu " + GetVersion())
-    fmt.Println("Copyright 2010-2013 by Stephen Ramsay and")
+    fmt.Println("Copyright 2010-2014 by Stephen Ramsay and")
     fmt.Println("Anthony Starks. Data courtesy of Weather")
     fmt.Println("Underground, Inc. is subject to Weather")
     fmt.Println("Underground Data Feed Terms of Service.")
