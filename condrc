@@ -1,4 +1,5 @@
 {
   "key": "YOUR_API_KEY",
-  "station": "Lincoln, NE"
+  "station": "Lincoln, NE",
+	"degrees": "F"
 }

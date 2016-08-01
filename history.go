@@ -7,9 +7,9 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Wed Dec 18 16:11:39 CST 2013
+* Last Modified: Mon Aug 01 12:36:46 CDT 2016
 *
-* Copyright © 2010-2014 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ type Dailysummary struct {
   Since1jancoolingdegreedaysnormal   string
 }
 
-func PrintHistory(obs *HistoryConditions, stationId string) {
+func PrintHistory(obs *HistoryConditions, stationId string, degrees string) {
 
   if len(obs.History.Observations) == 0 {
     fmt.Println("No data available for specified date")
@@ -178,9 +178,15 @@ func PrintHistory(obs *HistoryConditions, stationId string) {
   // Temperature
 
   fmt.Println("   Temperature:")
-  fmt.Printf("      Mean Temperature: %s F (%s C)\n", history.Meantempi, history.Meantempm)
-  fmt.Printf("      Max Temperature: %s F (%s C)\n", history.Maxtempi, history.Maxtempm)
-  fmt.Printf("      Min Temperature: %s F (%s C)\n", history.Mintempi, history.Mintempm)
+	if (degrees == "C") {
+		fmt.Printf("      Mean Temperature: %s C (%s F)\n", history.Meantempm, history.Meantempi)
+		fmt.Printf("      Max Temperature: %s C (%s F)\n", history.Maxtempm, history.Maxtempi)
+		fmt.Printf("      Min Temperature: %s C (%s F)\n", history.Mintempm, history.Mintempi)
+	} else {
+		fmt.Printf("      Mean Temperature: %s F (%s C)\n", history.Meantempi, history.Meantempm)
+		fmt.Printf("      Max Temperature: %s F (%s C)\n", history.Maxtempi, history.Maxtempm)
+		fmt.Printf("      Min Temperature: %s F (%s C)\n", history.Mintempi, history.Mintempm)
+	}
 
   // Degree Days
 
@@ -224,9 +230,16 @@ func PrintHistory(obs *HistoryConditions, stationId string) {
   // Moisture
 
   fmt.Println("   Moisture:")
-  fmt.Printf("      Mean Dew Point: %s (%s C)\n", history.Meandewpti, history.Meandewptm)
-  fmt.Printf("      Max Dew Point: %s (%s C)\n", history.Maxdewpti, history.Maxdewptm)
-  fmt.Printf("      Min Dew Point: %s (%s C)\n", history.Mindewpti, history.Mindewptm)
+	if (degrees == "C") {
+  fmt.Printf("      Mean Dew Point: %s (%s F)\n", history.Meandewptm, history.Meandewpti)
+  fmt.Printf("      Max Dew Point: %s (%s F)\n", history.Maxdewptm, history.Maxdewpti)
+  fmt.Printf("      Min Dew Point: %s (%s F)\n", history.Mindewptm, history.Mindewpti)
+	} else {
+		fmt.Printf("      Mean Dew Point: %s (%s C)\n", history.Meandewpti, history.Meandewptm)
+		fmt.Printf("      Max Dew Point: %s (%s C)\n", history.Maxdewpti, history.Maxdewptm)
+		fmt.Printf("      Min Dew Point: %s (%s C)\n", history.Mindewpti, history.Mindewptm)
+	}
+
   if history.Humidity != "" {
     fmt.Printf("      Humidity: %s%%\n", history.Humidity)
   }

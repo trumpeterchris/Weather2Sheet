@@ -1,13 +1,12 @@
 /*
-* alerts.go
+* utils.go
 *
-* This file is part of wu.  It contains functions related to
-* the -alerts switch (active weather alerts).
+* This file is part of wu.  It contains utility functions.
 *
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Mon Aug 01 12:58:30 CDT 2016
+* Last Modified: Mon Aug 01 12:25:26 CDT 2016
 *
 * Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
@@ -25,33 +24,17 @@
 * along with wu; see the file COPYING.  If not see
 * <http://www.gnu.org/licenses/>.
  */
-
 package main
 
 import (
-  "fmt"
+	"regexp"
 )
 
-type AlertConditions struct {
-  Alerts []Alerts
-}
+func Convert(temp string) string {
+	celsiusPattern := regexp.MustCompile("([0-9]+ F) \\(([0-9]+ C)\\)")
 
-type Alerts struct {
-  Date        string
-  Expires     string
-  Description string
-  Message     string
-}
+	pattern := celsiusPattern.FindStringSubmatch(temp)
+	newTemp := pattern[2] + " " + "(" + pattern[1] + ")"
 
-// printAlerts prints the alerts for a given station to standard out
-func PrintAlerts(obs *AlertConditions, stationId string) {
-  if len(obs.Alerts) == 0 {
-    fmt.Println("No active alerts")
-  } else {
-    fmt.Printf("Station: %s\n", stationId)
-    for _, a := range obs.Alerts {
-      fmt.Printf("### %s ###\n\nIssued at %s\nExpires at %s\n%s\n",
-        a.Description, a.Date, a.Expires, a.Message)
-    }
-  }
+	return newTemp
 }

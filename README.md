@@ -2,18 +2,19 @@
 Wu
 ==========
 
-Version 3.9.7
+Version 3.10.0
 
 _wu_ is a small, fast command-line application that retrieves weather data from [Weather Underground](http://www.wunderground.com).
 
 Description
 -----------
 
-To use _wu,_ you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station to $HOME/.condrc:
+To use _wu,_ you need to obtain an API key from Weather Underground [http://www.wunderground.com/weather/api/](http://www.wunderground.com/weather/api/).  You should then add that key and the name of your default weather station, and your preference for Fahrenheit or Celcius (new feature in 3.10!) to $HOME/.condrc.  E.g.:
 
 	{
 	  "key": "YOUR_API_KEY",
-	  "station": "Lincoln, NE"
+	  "station": "Lincoln, NE",
+		"degrees": "F"
 	}
 
 (the above is available in the wu root directory as "condrc")
@@ -100,4 +101,4 @@ Data courtesy of Weather Underground, Inc. (WUI) is subject to the [Weather Unde
 Thanks
 ------
 
-Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as wu.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich, [JSON](http://www.json.org/) API.
+Wu was heavily inspired by Jeremy Stanley's [weather](http://fungi.yuggoth.org/weather/).  This is a lovely Python script that has more-or-less the same output format as wu.  I reimplemented the system because Stanley's had stopped working (for me) and I wanted a program that was faster.  I also wanted a system that takes advantage of Weather Underground's rich [JSON](http://www.json.org/) API.

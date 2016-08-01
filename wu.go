@@ -7,9 +7,9 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Sun Sep 01 16:38:59 CDT 2013
+* Last Modified: Mon Aug 01 12:28:06 CDT 2016
 *
-* Copyright © 2010-2013 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ import (
 type Config struct {
   Key     string
   Station string
+	Degrees string
 }
 
 var (
@@ -77,7 +78,7 @@ const defaultStation = "KLNK"
 
 // GetVersion returns the version of the package
 func GetVersion() string {
-  return "3.9.7"
+  return "3.10.0"
 }
 
 // GetConf returns the API key and weather station from
@@ -223,7 +224,7 @@ func weather(operation string, station string) {
     var obs AlmanacConditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintAlmanac(&obs, station)
+    PrintAlmanac(&obs, station, conf.Degrees)
   case "astronomy":
     var obs AstroConditions
     jsonErr := json.Unmarshal(b, &obs)
@@ -238,7 +239,7 @@ func weather(operation string, station string) {
     var obs Conditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintConditions(&obs)
+    PrintConditions(&obs, conf.Degrees)
   case "forecast":
     var obs ForecastConditions
     jsonErr := json.Unmarshal(b, &obs)
@@ -253,17 +254,17 @@ func weather(operation string, station string) {
     var obs HistoryConditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintHistory(&obs, station)
+    PrintHistory(&obs, station, conf.Degrees)
   case "history":
     var obs HistoryConditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintHistory(&obs, station)
+    PrintHistory(&obs, station, conf.Degrees)
   case "planner":
     var obs PlannerConditions
     jsonErr := json.Unmarshal(b, &obs)
     CheckError(jsonErr)
-    PrintPlanner(&obs, station)
+    PrintPlanner(&obs, station, conf.Degrees)
   case "tide":
     var obs TideConditions
     jsonErr := json.Unmarshal(b, &obs)

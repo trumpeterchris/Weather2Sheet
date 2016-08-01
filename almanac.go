@@ -7,9 +7,9 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Wed Dec 18 16:10:51 CST 2013
+* Last Modified: Mon Aug 01 12:28:46 CDT 2016
 *
-* Copyright © 2010-2014 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ type Record struct {
 }
 
 // printAlmanac prints the Almanac for a given station to standard out
-func PrintAlmanac(obs *AlmanacConditions, stationId string) {
+func PrintAlmanac(obs *AlmanacConditions, stationId string, degrees string) {
 
   normalHighF := obs.Almanac.Temp_high.Normal.F
   normalHighC := obs.Almanac.Temp_high.Normal.C
@@ -78,9 +78,17 @@ func PrintAlmanac(obs *AlmanacConditions, stationId string) {
   recordLowC := obs.Almanac.Temp_low.Record.C
   recordLYear := obs.Almanac.Temp_low.Recordyear
 
-  fmt.Printf("Normal high: %s\u00B0 F (%s\u00B0 C)\n", normalHighF, normalHighC)
-  fmt.Printf("Record high: %s\u00B0 F (%s\u00B0 C) [%s]\n", recordHighF, recordHighC, recordHYear)
-  fmt.Printf("Normal low : %s\u00B0 F (%s\u00B0 C)\n", normalLowF, normalLowC)
-  fmt.Printf("Record low : %s\u00B0 F (%s\u00B0 C) [%s]\n", recordLowF, recordLowC, recordLYear)
+	if (degrees == "C") {
+		fmt.Printf("Normal high: %s\u00B0 C (%s\u00B0 F)\n", normalHighC, normalHighF)
+		fmt.Printf("Record high: %s\u00B0 C (%s\u00B0 F) [%s]\n", recordHighC, recordHighF, recordHYear)
+		fmt.Printf("Normal low : %s\u00B0 C (%s\u00B0 F)\n", normalLowC, normalLowF)
+		fmt.Printf("Record low : %s\u00B0 C (%s\u00B0 F) [%s]\n", recordLowC, recordLowF, recordLYear)
+
+	} else {
+		fmt.Printf("Normal high: %s\u00B0 C (%s\u00B0 F)\n", normalHighC, normalHighF)
+		fmt.Printf("Record high: %s\u00B0 C (%s\u00B0 F) [%s]\n", recordHighC, recordHighF, recordHYear)
+		fmt.Printf("Normal low : %s\u00B0 C (%s\u00B0 F)\n", normalLowC, normalLowF)
+		fmt.Printf("Record low : %s\u00B0 F (%s\u00B0 C) [%s]\n", recordLowC, recordLowF, recordLYear)
+	}
 
 }

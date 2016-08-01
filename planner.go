@@ -7,9 +7,9 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Wed Dec 18 16:11:55 CST 2013
+* Last Modified: Mon Aug 01 12:49:01 CDT 2016
 *
-* Copyright © 2010-2014 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -173,7 +173,7 @@ type Chanceofsnowday struct {
   Percentage  string
 }
 
-func PrintPlanner(obs *PlannerConditions, stationId string) {
+func PrintPlanner(obs *PlannerConditions, stationId string, degrees string) {
 
   if obs.Trip.Error != "" {
     fmt.Println(obs.Trip.Error)
@@ -185,13 +185,23 @@ func PrintPlanner(obs *PlannerConditions, stationId string) {
   fmt.Println("Station: " + obs.Trip.Airport_code)
   fmt.Println("Chance of: ")
   fmt.Println("   Temps:")
-  fmt.Printf("      Over 90 F (32 C): %s%%\n", planner.Tempoverninety.Percentage)
-  fmt.Printf("      Between 60 F (15 C) and 90 F (32 C): %s%%\n", planner.Tempoversixty.Percentage)
-  fmt.Printf("      Between 32 F (0 C) and 60 (16 C): %s%%\n", planner.Tempoversixty.Percentage)
-  fmt.Printf("      Below 32 F (0 C): %s%%\n", planner.Tempbelowfreezing.Percentage)
-  fmt.Printf("   Dewpoint above 70 F (21 C): %s%%\n", planner.Chanceofsultryday.Percentage)
-  fmt.Printf("   Dewpoint above 60 F (15 C): %s%%\n", planner.Chanceofhumidday.Percentage)
-  fmt.Printf("   Winds over 10 mph (15 km/h): %s%%\n", planner.Chanceofwindyday.Percentage)
+	if (degrees == "C") {
+		fmt.Printf("      Over 32 C (90 F): %s%%\n", planner.Tempoverninety.Percentage)
+		fmt.Printf("      Between 15 C (60 F) and 32 C (90 F): %s%%\n", planner.Tempoversixty.Percentage)
+		fmt.Printf("      Between 0 C (32 F) and 16 C (60 F): %s%%\n", planner.Tempoversixty.Percentage)
+		fmt.Printf("      Below 0 F (32 C): %s%%\n", planner.Tempbelowfreezing.Percentage)
+		fmt.Printf("   Dewpoint above 21 C (70 F): %s%%\n", planner.Chanceofsultryday.Percentage)
+		fmt.Printf("   Dewpoint above 15 C (60 F): %s%%\n", planner.Chanceofhumidday.Percentage)
+	fmt.Printf("   Winds over 15 km/h (10 mph): %s%%\n", planner.Chanceofwindyday.Percentage)
+	} else {
+		fmt.Printf("      Over 90 F (32 C): %s%%\n", planner.Tempoverninety.Percentage)
+		fmt.Printf("      Between 60 F (15 C) and 90 F (32 C): %s%%\n", planner.Tempoversixty.Percentage)
+		fmt.Printf("      Between 32 F (0 C) and 60 F (16 C): %s%%\n", planner.Tempoversixty.Percentage)
+		fmt.Printf("      Below 32 F (0 C): %s%%\n", planner.Tempbelowfreezing.Percentage)
+		fmt.Printf("   Dewpoint above 70 F (21 C): %s%%\n", planner.Chanceofsultryday.Percentage)
+		fmt.Printf("   Dewpoint above 60 F (15 C): %s%%\n", planner.Chanceofhumidday.Percentage)
+	fmt.Printf("   Winds over 10 mph (15 km/h): %s%%\n", planner.Chanceofwindyday.Percentage)
+	}
   fmt.Printf("   %s day: %s%%\n", planner.Chanceofsunnycloudyday.Name, planner.Chanceofsunnycloudyday.Percentage)
   fmt.Printf("   %s day: %s%%\n", planner.Chanceofcloudyday.Name, planner.Chanceofcloudyday.Percentage)
   fmt.Printf("   %s day: %s%%\n", planner.Chanceofpartlycloudyday.Name, planner.Chanceofpartlycloudyday.Percentage)

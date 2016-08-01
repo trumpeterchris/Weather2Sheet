@@ -7,9 +7,9 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Wed Dec 18 16:11:11 CST 2013
+* Last Modified: Mon Aug 01 12:25:26 CDT 2016
 *
-* Copyright © 2010-2014 by Stephen Ramsay and Anthony Starks.
+* Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
 * wu is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -29,85 +29,93 @@
 package main
 
 import (
-  "fmt"
-  "regexp"
+	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
-
 type Conditions struct {
-  Current_observation Current
+	Current_observation Current
 }
 
 type Current struct {
-  Observation_time     string
-  Observation_location Location
-  Station_id           string
-  Weather              string
-  Temperature_string   string
-  Relative_humidity    string
-  Wind_string          string
-  Pressure_mb          string
-  Pressure_in          string
-  Pressure_trend       string
-  Dewpoint_string      string
-  Heat_index_string    string
-  Windchill_string     string
-  Visibility_mi        string
-  Precip_today_string  string
+	Observation_time     string
+	Observation_location Location
+	Station_id           string
+	Weather              string
+	Temperature_string   string
+	Relative_humidity    string
+	Wind_string          string
+	Pressure_mb          string
+	Pressure_in          string
+	Pressure_trend       string
+	Dewpoint_string      string
+	Heat_index_string    string
+	Windchill_string     string
+	Visibility_mi        string
+	Precip_today_string  string
 }
 
 type Location struct {
-  Full string
+	Full string
 }
 
 // printConditions prints the conditions to standard output
-func PrintConditions(obs *Conditions) {
-  current := obs.Current_observation
-  fmt.Printf("Current conditions at %s (%s)\n%s\n",
-    current.Observation_location.Full, current.Station_id, current.Observation_time)
-  fmt.Println("   Temperature:", current.Temperature_string)
-  if current.Heat_index_string != "NA" {
-    fmt.Println("   Heat Index: ", current.Heat_index_string)
-  }
-  fmt.Println("   Sky Conditions:", current.Weather)
-  fmt.Println("   Wind:", current.Wind_string)
-  pstring := fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
-  switch current.Pressure_trend {
-  case "+":
-    fmt.Println(pstring, "rising")
-  case "-":
-    fmt.Println(pstring, "falling")
-  case "0":
-    fmt.Println(pstring, "holding steady")
-  }
-  fmt.Println("   Relative humidity:", current.Relative_humidity)
-	fmt.Print("   Dewpoint: ", current.Dewpoint_string)
+func PrintConditions(obs *Conditions, degrees string) {
+	current := obs.Current_observation
+	fmt.Printf("Current conditions at %s (%s)\n%s\n",
+		current.Observation_location.Full, current.Station_id, current.Observation_time)
+	if degrees == "C" {
+		fmt.Println("   Temperature:", Convert(current.Temperature_string))
+	}
+	if current.Heat_index_string != "NA" {
+		fmt.Println("   Heat Index: ", current.Heat_index_string)
+	}
+	fmt.Println("   Sky Conditions:", current.Weather)
+	fmt.Println("   Wind:", current.Wind_string)
+	pstring := fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
+	switch current.Pressure_trend {
+	case "+":
+		fmt.Println(pstring, "rising")
+	case "-":
+		fmt.Println(pstring, "falling")
+	case "0":
+		fmt.Println(pstring, "holding steady")
+	}
+
+	fmt.Println("   Relative humidity:", current.Relative_humidity)
+
+	if degrees == "C" {
+		fmt.Print("   Dewpoint: ", Convert(current.Dewpoint_string))
+	} else {
+		fmt.Print("   Dewpoint: ", current.Dewpoint_string)
+	}
+
 	dp_components := strings.Split(current.Dewpoint_string, " ")
 	dp, _ := strconv.Atoi(dp_components[0])
 	if dp < 50 {
 		fmt.Println(" (dry)")
 	} else if dp >= 50 && dp <= 54 {
-			fmt.Println(" (very comfortable)")
+		fmt.Println(" (very comfortable)")
 	} else if dp >= 55 && dp <= 59 {
-			fmt.Println(" (comfortable)")
+		fmt.Println(" (comfortable)")
 	} else if dp >= 60 && dp <= 64 {
-			fmt.Println(" (okay for most)")
+		fmt.Println(" (okay for most)")
 	} else if dp >= 65 && dp <= 69 {
-			fmt.Println(" (somewhat uncomfortable)")
+		fmt.Println(" (somewhat uncomfortable)")
 	} else if dp >= 70 && dp <= 74 {
-			fmt.Println(" (very humid)")
+		fmt.Println(" (very humid)")
 	} else if dp >= 75 && dp <= 80 {
-			fmt.Println(" (oppressive)")
+		fmt.Println(" (oppressive)")
 	} else if dp >= 80 {
-			fmt.Println(" (dangerously high)")
-		}
-  if current.Windchill_string != "NA" {
-    fmt.Println("   Windchill: ", current.Windchill_string)
-  }
-  fmt.Printf("   Visibility: %s miles\n", current.Visibility_mi)
-  if m, _ := regexp.MatchString("0.0", current.Precip_today_string); !m {
-    fmt.Println("   Precipitation today: ", current.Precip_today_string)
-  }
+		fmt.Println(" (dangerously high)")
+	}
+	if current.Windchill_string != "NA" {
+		fmt.Println("   Windchill: ", current.Windchill_string)
+	}
+	fmt.Printf("   Visibility: %s miles\n", current.Visibility_mi)
+	if m, _ := regexp.MatchString("0.0", current.Precip_today_string); !m {
+		fmt.Println("   Precipitation today: ", current.Precip_today_string)
+	}
 }
