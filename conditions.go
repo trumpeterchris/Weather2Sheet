@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Mon Aug 01 12:25:26 CDT 2016
+* Last Modified: Fri Aug 05 10:27:59 CDT 2016
 *
 * Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
@@ -68,6 +68,8 @@ func PrintConditions(obs *Conditions, degrees string) {
 		current.Observation_location.Full, current.Station_id, current.Observation_time)
 	if degrees == "C" {
 		fmt.Println("   Temperature:", Convert(current.Temperature_string))
+	} else {
+		fmt.Println("   Temperature:", current.Temperature_string)
 	}
 	if current.Heat_index_string != "NA" {
 		fmt.Println("   Heat Index: ", current.Heat_index_string)
