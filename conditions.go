@@ -7,7 +7,7 @@
 * Written and maintained by Stephen Ramsay <sramsay.unl@gmail.com>
 * and Anthony Starks.
 *
-* Last Modified: Fri Aug 05 10:27:59 CDT 2016
+* Last Modified: Sat Aug 13 13:16:18 CDT 2016
 *
 * Copyright © 2010-2016 by Stephen Ramsay and Anthony Starks.
 *
@@ -76,7 +76,12 @@ func PrintConditions(obs *Conditions, degrees string) {
 	}
 	fmt.Println("   Sky Conditions:", current.Weather)
 	fmt.Println("   Wind:", current.Wind_string)
-	pstring := fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
+	if degrees == "C" {
+		pstring := fmt.Sprintf("   Pressure: %s mb (%s in) and", current.Pressure_mb, current.Pressure_in)
+	} else {
+		pstring := fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
+
+	}
 	switch current.Pressure_trend {
 	case "+":
 		fmt.Println(pstring, "rising")
