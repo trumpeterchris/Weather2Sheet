@@ -76,11 +76,11 @@ func PrintConditions(obs *Conditions, degrees string) {
 	}
 	fmt.Println("   Sky Conditions:", current.Weather)
 	fmt.Println("   Wind:", current.Wind_string)
+	var pstring = ""
 	if degrees == "C" {
-		pstring := fmt.Sprintf("   Pressure: %s mb (%s in) and", current.Pressure_mb, current.Pressure_in)
+		pstring = fmt.Sprintf("   Pressure: %s mb (%s in) and", current.Pressure_mb, current.Pressure_in)
 	} else {
-		pstring := fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
-
+		pstring = fmt.Sprintf("   Pressure: %s in (%s mb) and", current.Pressure_in, current.Pressure_mb)
 	}
 	switch current.Pressure_trend {
 	case "+":
